@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wild Rainier — Washington Hiking</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+
+  <!-- Icon8 / Line Awesome (Free) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome@1.3.0/dist/line-awesome/css/line-awesome.min.css" />
+
+  <!-- Google Fonts: Playfair Display + Inter + Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Custom Theme ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #dcdbd9;
+      color: #1e423b;
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-card {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ── Tailwind Custom Colors ── */
+    .bg-wa-green {
+      background-color: #1e423b;
+    }
+    .bg-wa-orange {
+      background-color: #f48746;
+    }
+    .bg-wa-red-orange {
+      background-color: #d75d46;
+    }
+    .bg-wa-soft-red {
+      background-color: #d98f86;
+    }
+    .bg-wa-light-gray {
+      background-color: #dcdbd9;
+    }
+    .bg-wa-periwinkle {
+      background-color: #c0cbdd;
+    }
+    .bg-wa-deep-blue {
+      background-color: #25a06f;
+    }
+    .text-wa-green {
+      color: #1e423b;
+    }
+    h{
+    color: #dcdbd9;
+    }
+    .text-wa-orange {
+      color: #f48746;
+    }
+    .text-wa-red-orange {
+      color: #d75d46;
+    }
+    .text-wa-soft-red {
+      color: #d98f86;
+    }
+    .text-wa-deep-blue {
+      color:  #e9831d;
+    }
+    .text-wa-periwinkle {
+      color: #c0cbdd;
+    }
+    .border-wa-deep-blue {
+      border-color: #4B2E83;
+    }
+
+    /* ── Glassmorphism ── */
+    .glass-light {
+      background: rgba(255, 255, 255, 0.70);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(37, 108, 160, 0.15);
+      box-shadow: 0 8px 32px rgba(30, 66, 59, 0.08);
+    }
+    .glass-dark {
+      background: rgba(30, 66, 59, 0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: #256ca0;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(37, 108, 160, 0.35);
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: #1a4f7a;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(37, 108, 160, 0.40);
+    }
+    .btn-outline-light {
+      background: transparent;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-outline-dark {
+      background: transparent;
+      color: #1e423b;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      border: 1.5px solid #1e423b;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline-dark:hover {
+      background: #1e423b;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ── Slider ── */
+    .slider-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .slide.active {
+      opacity: 1;
+    }
+    .slide .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 66, 59, 0.30);
+      background: linear-gradient(180deg, rgba(30, 66, 59, 0.1) 0%, rgba(37, 108, 160, 0.4) 100%);
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 1rem 1.2rem;
+      border-radius: 60px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: all 0.3s;
+    }
+    .slider-btn:hover {
+      background: #256ca0;
+      border-color: #256ca0;
+    }
+    .slider-btn.prev {
+      left: 1.5rem;
+    }
+    .slider-btn.next {
+      right: 1.5rem;
+    }
+    .slider-dots {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      gap: 0.75rem;
+    }
+    .slider-dots .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 60px;
+      background: rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+    .slider-dots .dot.active {
+      background: #256ca0;
+      width: 32px;
+    }
+
+    /* ── Gallery ── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: minmax(180px, auto);
+      gap: 1rem;
+    }
+    .gallery-grid .item {
+      border-radius: 1.2rem;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.4s;
+      border: 2px solid rgba(37, 108, 160, 0.1);
+    }
+    .gallery-grid .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-grid .item:hover img {
+      transform: scale(1.06);
+    }
+    .gallery-grid .item .info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(0deg, rgba(30, 66, 59, 0.8) 0%, transparent 100%);
+      color: #fff;
+      font-weight: 500;
+      font-size: 0.9rem;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .gallery-grid .item:hover .info {
+      opacity: 1;
+    }
+    .item:hover .info {
+  opacity: 1;
+}
+    .gallery-grid .item:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+    .gallery-grid .item:nth-child(5) {
+      grid-column: span 2;
+    }
+    @media (max-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-grid .item:nth-child(1) {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+      .gallery-grid .item:nth-child(5) {
+        grid-column: span 2;
+      }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+      .gallery-grid .item:nth-child(1) {
+        grid-column: span 2;
+      }
+    }
+
+    /* ── Season Cards ── */
+    .season-card {
+      border-radius: 2rem;
+      padding: 2.5rem 2rem;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .season-card .bg-shape {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      right: -50%;
+      border-radius: 60%;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+    .season-card.spring .bg-shape {
+      background: radial-gradient(circle, #c0cbdd, #256ca0);
+    }
+    .season-card.fall .bg-shape {
+      background: radial-gradient(circle, #f48746, #d75d46);
+    }
+    .season-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 20px 60px rgba(37, 108, 160, 0.15);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #dcdbd9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #256ca0;
+      border-radius: 60px;
+    }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ NAVIGATION ═══════ -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 md:h-20">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
+        <i class="las la-mountain text-wa-deep-blue text-2xl"></i>
+        <span class="text-white">Wild Rainier</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center gap-8 text-white/80 text-sm font-medium">
+        <a href="#about" class="hover:text-wa-deep-blue transition-colors">About</a>
+        <a href="#trails" class="hover:text-wa-deep-blue transition-colors">Trails</a>
+        <a href="#gallery" class="hover:text-wa-deep-blue transition-colors">Gallery</a>
+        <a href="#testimonials" class="hover:text-wa-deep-blue transition-colors">Reviews</a>
+        <a href="#contact" class="btn-primary text-sm py-2 px-5">
+          <i class="las la-compass mr-2"></i>Plan Trip
+        </a>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button id="menuToggle" class="md:hidden text-white/80 hover:text-white transition-colors p-1" aria-label="Toggle menu">
+        <i class="las la-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden flex-col gap-4 px-6 py-6 bg-wa-green/95 backdrop-blur-xl border-t border-white/5 md:hidden">
+      <a href="#about" class="text-white/80 hover:text-wa-deep-blue transition-colors">About</a>
+      <a href="#trails" class="text-white/80 hover:text-wa-deep-blue transition-colors">Trails</a>
+      <a href="#gallery" class="text-white/80 hover:text-wa-deep-blue transition-colors">Gallery</a>
+      <a href="#testimonials" class="text-white/80 hover:text-wa-deep-blue transition-colors">Reviews</a>
+      <a href="#contact" class="btn-primary text-center text-sm py-2.5">Plan Trip</a>
+    </div>
+  </nav>
+
+  <!-- ═══════ HERO SLIDER ═══════ -->
+  <section class="slider-container" id="home">
+    <!-- Slides -->
+    <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&h=900&fit=crop&crop=center');">
+      <div class="overlay"></div>
+      <div class="relative z-10 max-w-4xl px-5 text-white">
+        <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4"><i class="las la-mountain mr-2"></i>Mount Rainier</span>
+        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight text-shadow">Wild <span class="bg-wa-light-grayy">Washington</span></h1>
+        <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light">Where ancient forests meet alpine peaks &amp; crystal blue waters.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="#trails" class="btn-primary"><i class="las la-hiking mr-2"></i>Explore Trails</a>
+          <a href="#contact" class="btn-outline-light"><i class="las la-envelope mr-2"></i>Get in Touch</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&h=900&fit=crop&crop=center');">
+      <div class="overlay"></div>
+      <div class="relative z-10 max-w-4xl px-5 text-white">
+        <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4"><i class="las la-tree mr-2"></i>Emerald Jungles</span>
+        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">Moss &amp; <span class="bg-wa-light-grayy">Mystery</span></h1>
+        <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light">Step into the lush, green heart of the Pacific Northwest.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="#gallery" class="btn-primary"><i class="las la-images mr-2"></i>View Gallery</a>
+          <a href="#about" class="btn-outline-light"><i class="las la-info-circle mr-2"></i>Learn More</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&h=900&fit=crop&crop=center');">
+      <div class="overlay"></div>
+      <div class="relative z-10 max-w-4xl px-5 text-white">
+        <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4"><i class="las la-tint mr-2"></i>Alpine Waters</span>
+        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">Blue <span class="bg-wa-light-grayy">Reflections</span></h1>
+        <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light">Crystal clear lakes reflecting the majestic peaks above.</p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a href="#contact" class="btn-primary"><i class="las la-calendar-check mr-2"></i>Book a Tour</a>
+          <a href="#trails" class="btn-outline-light"><i class="las la-map-signs mr-2"></i>Find a Trail</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <button class="slider-btn prev" id="prevSlide"><i class="las la-chevron-left"></i></button>
+    <button class="slider-btn next" id="nextSlide"><i class="las la-chevron-right"></i></button>
+    <div class="slider-dots" id="sliderDots">
+      <button class="dot active" data-index="0"></button>
+      <button class="dot" data-index="1"></button>
+      <button class="dot" data-index="2"></button>
+    </div>
+  </section>
+
+  <!-- ═══════ SPRING & FALL SHOWCASE ═══════ -->
+  <section class="py-16 md:py-24 px-5 bg-wa-light-gray" id="about">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-seedling mr-2"></i> Seasons of Washington</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">
+          Spring <span class="text-wa-soft-red">&amp;</span> Fall <span class="text-wa-orange">Magic</span>
+        </h2>
+        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">From purple wildflowers to fiery autumn leaves, Washington transforms with breathtaking beauty.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 mt-12">
+        <!-- Spring Card -->
+        <div class="season-card spring glass-light fade-up fade-up-d1">
+          <div class="bg-shape"></div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-4xl text-wa-deep-blue"><i class="las la-seedling"></i></span>
+              <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase">Spring</span>
+            </div>
+            <h3 class="font-display text-3xl font-bold text-wa-green">Purple &amp; Periwinkle</h3>
+            <p class="text-wa-green/80 mt-2 leading-relaxed font-card">Wildflowers carpet the meadows in hues of violet and blue. The jungles come alive with fresh green growth and the sound of rushing water.</p>
+            <div class="flex flex-wrap gap-3 mt-4">
+              <span class="px-3 py-1 bg-wa-periwinkle/30 text-wa-deep-blue rounded-full text-xs font-bold"><i class="las la-circle text-wa-periwinkle mr-1"></i> Lupine</span>
+              <span class="px-3 py-1 bg-wa-deep-blue/20 text-wa-deep-blue rounded-full text-xs font-bold"><i class="las la-circle text-wa-deep-blue mr-1"></i> Blue Camas</span>
+              <span class="px-3 py-1 bg-wa-soft-red/20 text-wa-soft-red rounded-full text-xs font-bold"><i class="las la-tree mr-1"></i> Ferns</span>
+            </div>
+            <div class="mt-6 flex items-center gap-2 text-wa-green/60 text-sm">
+              <i class="las la-arrow-right text-wa-deep-blue"></i>
+              <span>Best hikes: Paradise, Skyline</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fall Card -->
+        <div class="season-card fall glass-light fade-up fade-up-d2">
+          <div class="bg-shape"></div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-4xl text-wa-red-orange"><i class="las la-leaf"></i></span>
+              <span class="text-wa-red-orange font-bold text-sm tracking-widest uppercase">Fall</span>
+            </div>
+            <h3 class="font-display text-3xl font-bold text-wa-green">Orange &amp; Crimson</h3>
+            <p class="text-wa-green/80 mt-2 leading-relaxed font-card">The forests ignite with brilliant orange, red, and gold. Crisp air, stunning contrasts against the evergreen backdrop, and elk bugling.</p>
+            <div class="flex flex-wrap gap-3 mt-4">
+              <span class="px-3 py-1 bg-wa-orange/30 text-wa-red-orange rounded-full text-xs font-bold"><i class="las la-circle text-wa-orange mr-1"></i> Vine Maple</span>
+              <span class="px-3 py-1 bg-wa-red-orange/20 text-wa-red-orange rounded-full text-xs font-bold"><i class="las la-circle text-wa-red-orange mr-1"></i> Huckleberry</span>
+              <span class="px-3 py-1 bg-[#d98f86]/20 text-[#d75d46] rounded-full text-xs font-bold"><i class="las la-mountain mr-1"></i> Larch</span>
+            </div>
+            <div class="mt-6 flex items-center gap-2 text-wa-green/60 text-sm">
+              <i class="las la-arrow-right text-wa-deep-blue"></i>
+              <span>Best hikes: Maple Pass, Naches Peak</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TRAILS SECTION ═══════ -->
+  <section id="trails" class="py-16 md:py-24 px-5 bg-wa-green">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-map-signs mr-2"></i> Explore</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Featured <span class="text-wa-deep-blue">Trails</span></h2>
+        <p class="text-white/70 max-w-2xl mx-auto mt-3 text-lg">Handpicked routes that capture the soul of Washington's wilderness.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <!-- Card 1 -->
+        <div class="glass-dark rounded-2xl overflow-hidden fade-up fade-up-d1 group hover:bg-wa-green/95 transition-all border border-white/5">
+          <div class="h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=400&fit=crop&crop=center" alt="Skyline Trail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          <div class="p-6 text-white">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-white/50 ml-2">4.9</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold mt-2">Skyline Trail</h3>
+            <p class="text-white/70 text-sm mt-1 font-card"><i class="las la-mountain mr-1"></i> Paradise · 5.5 mi</p>
+            <p class="text-white/60 text-sm mt-3 leading-relaxed font-card">Wildflower meadows, sweeping glacier views, and a classic Rainier experience.</p>
+            <div class="mt-4 flex items-center gap-3 text-xs text-white/50">
+              <span><i class="las la-tree mr-1"></i> Moderate</span>
+              <span><i class="las la-clock mr-1"></i> 3-4 hrs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="glass-dark rounded-2xl overflow-hidden fade-up fade-up-d2 group hover:bg-wa-green/95 transition-all border border-white/5">
+          <div class="h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&crop=center" alt="Hoh River" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          <div class="p-6 text-white">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-white/50 ml-2">4.8</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold mt-2">Hoh Rainforest</h3>
+            <p class="text-white/70 text-sm mt-1 font-card"><i class="las la-tree mr-1"></i> Olympic NP · 3.2 mi</p>
+            <p class="text-white/60 text-sm mt-3 leading-relaxed font-card">Ancient moss-draped maples, lush ferns, and the serene rhythm of the Hoh River.</p>
+            <div class="mt-4 flex items-center gap-3 text-xs text-white/50">
+              <span><i class="las la-tree mr-1"></i> Easy</span>
+              <span><i class="las la-clock mr-1"></i> 1.5-2 hrs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="glass-dark rounded-2xl overflow-hidden fade-up fade-up-d3 group hover:bg-wa-green/95 transition-all border border-white/5">
+          <div class="h-56 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=400&fit=crop&crop=center" alt="Lake Serene" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          </div>
+          <div class="p-6 text-white">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-white/50 ml-2">4.7</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold mt-2">Lake Serene</h3>
+            <p class="text-white/70 text-sm mt-1 font-card"><i class="las la-tint mr-1"></i> Central Cascades · 7.2 mi</p>
+            <p class="text-white/60 text-sm mt-3 leading-relaxed font-card">Turquoise alpine water, towering cliffs, and a rewarding climb through old growth.</p>
+            <div class="mt-4 flex items-center gap-3 text-xs text-white/50">
+              <span><i class="las la-tree mr-1"></i> Hard</span>
+              <span><i class="las la-clock mr-1"></i> 4-5 hrs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-10 fade-up">
+        <a href="#" class="text-wa-deep-blue font-semibold hover:text-white transition-colors inline-flex items-center gap-2">
+          View all trails <i class="las la-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ GALLERY ═══════ -->
+  <section id="gallery" class="py-16 md:py-24 px-5 bg-wa-light-gray">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-camera mr-2"></i> Gallery</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">Washington <span class="text-wa-red-orange">Through</span> the Lens</h2>
+        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">A visual journey across seasons, from purple springs to golden falls.</p>
+      </div>
+
+      <div class="gallery-grid mt-10">
+        <div class="item fade-up fade-up-d1">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=800&fit=crop&crop=center" alt="Mount Rainier" loading="lazy" />
+          <div class="info"><i class="las la-mountain mr-2"></i> Mt. Rainier Sunrise</div>
+        </div>
+        <div class="item fade-up fade-up-d2">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&h=400&fit=crop&crop=center" alt="Reflection Lake" loading="lazy" />
+          <div class="info"><i class="las la-tint mr-2"></i> Reflection Lake</div>
+        </div>
+        <div class="item fade-up fade-up-d3">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=400&fit=crop&crop=center" alt="Hoh Rainforest" loading="lazy" />
+          <div class="info"><i class="las la-tree mr-2"></i> Hoh Rainforest</div>
+        </div>
+        <div class="item fade-up fade-up-d4">
+          <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=400&fit=crop&crop=center" alt="Wildflowers" loading="lazy" />
+          <div class="info"><i class="las la-seedling mr-2"></i> Spring Wildflowers</div>
+        </div>
+        <div class="item fade-up fade-up-d1">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=400&fit=crop&crop=center" alt="Waterfall" loading="lazy" />
+          <div class="info"><i class="las la-water mr-2"></i> Cascade Falls</div>
+        </div>
+        <div class="item fade-up fade-up-d2">
+          <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&h=400&fit=crop&crop=center&sat=-10" alt="Forest Path" loading="lazy" />
+          <div class="info"><i class="las la-leaf mr-2"></i> Autumn Path</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TESTIMONIALS ═══════ -->
+  <section id="testimonials" class="py-16 md:py-24 px-5 bg-wa-green">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-quote-right mr-2"></i> Testimonials</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Hiker <span class="text-wa-deep-blue">Voices</span></h2>
+        <p class="text-white/70 max-w-2xl mx-auto mt-3 text-lg">Real stories from adventurers who found their wild in Washington.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <div class="glass-dark rounded-2xl p-6 fade-up fade-up-d1 hover:bg-wa-green/80 transition-all border border-white/5">
+          <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
+          <p class="text-white/80 text-sm italic leading-relaxed font-card">“The Skyline Trail was breathtaking — wildflowers, glaciers, and that iconic view of Rainier. The guides made it unforgettable.”</p>
+          <div class="flex items-center gap-3 mt-4">
+            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/30 flex items-center justify-center text-white font-bold">JD</div>
+            <div>
+              <div class="text-white font-semibold text-sm">Jessica D.</div>
+              <div class="text-white/50 text-xs">Seattle, WA</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-dark rounded-2xl p-6 fade-up fade-up-d2 hover:bg-wa-green/80 transition-all border border-white/5">
+          <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
+          <p class="text-white/80 text-sm italic leading-relaxed font-card">“Walking through the Hoh Rainforest felt like stepping into another world. The moss, the silence, the green — pure magic.”</p>
+          <div class="flex items-center gap-3 mt-4">
+            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/30 flex items-center justify-center text-white font-bold">MR</div>
+            <div>
+              <div class="text-white font-semibold text-sm">Miguel R.</div>
+              <div class="text-white/50 text-xs">Portland, OR</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-dark rounded-2xl p-6 fade-up fade-up-d3 hover:bg-wa-green/80 transition-all border border-white/5">
+          <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
+          <p class="text-white/80 text-sm italic leading-relaxed font-card">“Lake Serene is a challenge, but the turquoise water at the top is worth every step. Absolutely stunning.”</p>
+          <div class="flex items-center gap-3 mt-4">
+            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/30 flex items-center justify-center text-white font-bold">AK</div>
+            <div>
+              <div class="text-white font-semibold text-sm">Aisha K.</div>
+              <div class="text-white/50 text-xs">Vancouver, BC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CONTACT / BOOKING ═══════ -->
+  <section id="contact" class="py-16 md:py-24 px-5 bg-wa-light-gray">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-paper-plane mr-2"></i> Contact</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">Plan Your <span class="text-wa-deep-blue">Adventure</span></h2>
+        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">Ready to explore the wild? Reach out and let's make it happen.</p>
+      </div>
+
+      <div class="grid md:grid-cols-5 gap-8 mt-12">
+        <!-- Form -->
+        <div class="md:col-span-3 glass-light rounded-2xl p-8 shadow-xl fade-up fade-up-d1 border border-wa-deep-blue/10">
+          <form id="contactForm" onsubmit="event.preventDefault(); alert('Thank you! Your adventure request has been sent. We\'ll be in touch shortly.');">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-user mr-1"></i> Name</label>
+                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60" placeholder="Your name" />
+              </div>
+              <div>
+                <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-envelope mr-1"></i> Email</label>
+                <input type="email" required class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60" placeholder="you@example.com" />
+              </div>
+            </div>
+            <div class="mt-4">
+              <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-hiking mr-1"></i> Preferred Trail</label>
+              <select class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60">
+                <option>Skyline Trail (Mt. Rainier)</option>
+                <option>Hoh Rainforest (Olympic)</option>
+                <option>Lake Serene (Cascades)</option>
+                <option>Maple Pass (North Cascades)</option>
+                <option>Other (Tell us below)</option>
+              </select>
+            </div>
+            <div class="mt-4">
+              <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-comment mr-1"></i> Message</label>
+              <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60" placeholder="Tell us about your dream hike..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full mt-4 text-center flex items-center justify-center gap-2 py-3.5">
+              <i class="las la-paper-plane"></i> Send Request
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Info & Map -->
+        <div class="md:col-span-2 flex flex-col gap-6 fade-up fade-up-d2">
+          <div class="glass-light rounded-2xl p-6 flex-1 shadow-xl border border-wa-deep-blue/10">
+            <h4 class="font-bold text-wa-green text-lg flex items-center gap-2"><i class="las la-id-card text-wa-deep-blue"></i> Get in Touch</h4>
+            <ul class="mt-4 space-y-4 text-wa-green/80 text-sm">
+              <li><i class="las la-map-pin text-wa-deep-blue w-6"></i> Ashford, WA · Near Mt. Rainier</li>
+              <li><i class="las la-phone text-wa-deep-blue w-6"></i> +1 (555) 742-8930</li>
+              <li><i class="las la-envelope text-wa-deep-blue w-6"></i> info@wildrainier.com</li>
+              <li><i class="lab la-instagram text-wa-deep-blue w-6"></i> @wildrainier</li>
+            </ul>
+            <div class="mt-6 flex gap-3 flex-wrap">
+              <span class="px-3 py-1 bg-wa-periwinkle/30 text-wa-deep-blue rounded-full text-xs font-bold"><i class="lab la-facebook mr-1"></i> Facebook</span>
+              <span class="px-3 py-1 bg-wa-periwinkle/30 text-wa-deep-blue rounded-full text-xs font-bold"><i class="lab la-twitter mr-1"></i> Twitter</span>
+              <span class="px-3 py-1 bg-wa-periwinkle/30 text-wa-deep-blue rounded-full text-xs font-bold"><i class="lab la-youtube mr-1"></i> YouTube</span>
+            </div>
+          </div>
+          <div class="glass-light rounded-2xl p-4 shadow-xl h-48 overflow-hidden relative border border-wa-deep-blue/10">
+            <iframe class="absolute inset-0 w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21406.8758356124!2d-121.77798447930979!3d46.7580733021754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5491b2c7b4a3d7e1%3A0x6c1b3b2b3b2b3b2b!2sMount%20Rainier!5e0!3m2!1sen!2sus!4v1684123456789" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="bg-wa-green border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-5 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
+            <i class="las la-mountain text-wa-deep-blue text-2xl"></i>
+            <span>Wild Rainier</span>
+          </div>
+          <p class="text-white/50 text-sm mt-3 max-w-xs leading-relaxed font-card">Inspired by the raw beauty of Washington — from the icy peaks of Rainier to the emerald depths of the Hoh.</p>
+          <div class="flex gap-4 mt-4 text-white/40">
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-instagram text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-facebook text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-twitter text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-youtube text-lg"></i></a>
+          </div>
+        </div>
+        <div>
+          <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Explore</h6>
+          <ul class="mt-3 space-y-2 text-white/50 text-sm">
+            <li><a href="#trails" class="hover:text-wa-deep-blue transition-colors">Trails</a></li>
+            <li><a href="#gallery" class="hover:text-wa-deep-blue transition-colors">Gallery</a></li>
+            <li><a href="#testimonials" class="hover:text-wa-deep-blue transition-colors">Reviews</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Support</h6>
+          <ul class="mt-3 space-y-2 text-white/50 text-sm">
+            <li><a href="#contact" class="hover:text-wa-deep-blue transition-colors">Contact Us</a></li>
+            <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 mt-8 pt-8 text-center text-white/30 text-sm font-card">
+        &copy; 2026 Wild Rainier. Crafted with <i class="las la-heart text-wa-soft-red"></i> for the Washington wilderness.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════ JAVASCRIPT ═══════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // ── MOBILE MENU ──
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let menuOpen = false;
+      menuToggle.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle('hidden', !menuOpen);
+        mobileMenu.classList.toggle('flex', menuOpen);
+        menuToggle.innerHTML = menuOpen ? '<i class="las la-times text-xl"></i>' :
+          '<i class="las la-bars text-xl"></i>';
+      });
+
+      // ── NAVBAR SCROLL EFFECT ──
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+          navbar.classList.add('bg-wa-green/95', 'shadow-lg');
+          navbar.classList.remove('bg-transparent');
+        } else {
+          navbar.classList.remove('bg-wa-green/95', 'shadow-lg');
+          navbar.classList.add('bg-transparent');
+        }
+      });
+
+      // ── SLIDER ──
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.dot');
+      const prevBtn = document.getElementById('prevSlide');
+      const nextBtn = document.getElementById('nextSlide');
+      let currentIndex = 0;
+      let slideInterval;
+
+      function goToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === index);
+        });
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === index);
+        });
+        currentIndex = index;
+      }
+
+      function nextSlide() {
+        goToSlide(currentIndex + 1);
+      }
+
+      function prevSlide() {
+        goToSlide(currentIndex - 1);
+      }
+
+      nextBtn.addEventListener('click', () => { clearInterval(slideInterval);
+        nextSlide();
+        startAutoSlide(); });
+      prevBtn.addEventListener('click', () => { clearInterval(slideInterval);
+        prevSlide();
+        startAutoSlide(); });
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          clearInterval(slideInterval);
+          goToSlide(parseInt(dot.dataset.index));
+          startAutoSlide();
+        });
+      });
+
+      function startAutoSlide() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 6000);
+      }
+      startAutoSlide();
+
+      // ── INTERSECTION OBSERVER (FADE UP) ──
+      const fadeEls = document.querySelectorAll('.fade-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+      fadeEls.forEach(el => observer.observe(el));
+
+      // ── GALLERY LIGHTBOX ──
+      document.querySelectorAll('.gallery-grid .item').forEach(item => {
+        item.addEventListener('click', function() {
+          const img = this.querySelector('img');
+          if (!img) return;
+          const src = img.getAttribute('src');
+          const alt = img.getAttribute('alt') || 'Washington wilderness';
+          const overlay = document.createElement('div');
+          overlay.style.cssText = `
+                      position: fixed; inset: 0; z-index: 9999;
+                      background: rgba(30, 66, 59, 0.92);
+                      backdrop-filter: blur(16px);
+                      display: flex; align-items: center; justify-content: center;
+                      padding: 2rem; cursor: pointer;
+                      opacity: 0; transition: opacity 0.4s ease;
+                    `;
+          overlay.innerHTML = `
+                      <img src="${src}" alt="${alt}" style="
+                        max-width: 90vw; max-height: 85vh;
+                        border-radius: 1.5rem;
+                        box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+                        object-fit: contain;
+                        transform: scale(0.95);
+                        transition: transform 0.4s ease;
+                        border: 2px solid rgba(37, 108, 160, 0.3);
+                      " />
+                      <div style="position: absolute; top: 1.5rem; right: 2rem; color: white; font-size: 2rem; opacity: 0.6;"><i class="las la-times"></i></div>
+                      <div style="position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-size: 0.9rem; font-family: Poppins, sans-serif;">${alt}</div>
+                    `;
+          document.body.appendChild(overlay);
+          requestAnimationFrame(() => {
+            overlay.style.opacity = '1';
+            const imgEl = overlay.querySelector('img');
+            if (imgEl) imgEl.style.transform = 'scale(1)';
+          });
+          overlay.addEventListener('click', () => {
+            overlay.style.opacity = '0';
+            setTimeout(() => overlay.remove(), 400);
+          });
+          const escHandler = (e) => {
+            if (e.key === 'Escape') {
+              overlay.style.opacity = '0';
+              setTimeout(() => {
+                overlay.remove();
+                document.removeEventListener('keydown', escHandler);
+              }, 400);
+            }
+          };
+          document.addEventListener('keydown', escHandler);
+        });
+      });
+
+    });
+  </script>
+
+</body>
+</html>
