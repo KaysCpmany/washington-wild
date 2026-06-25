@@ -62,9 +62,6 @@
     .text-wa-green {
       color: #1e423b;
     }
-    h{
-    color: #dcdbd9;
-    }
     .text-wa-orange {
       color: #f48746;
     }
@@ -75,13 +72,16 @@
       color: #d98f86;
     }
     .text-wa-deep-blue {
-      color:  #e9831d;
+      color: #e9831d;
     }
     .text-wa-periwinkle {
       color: #c0cbdd;
     }
     .border-wa-deep-blue {
       border-color: #4B2E83;
+    }
+    .bg-wa-deep-blue-solid {
+      background-color: #256ca0;
     }
 
     /* ── Glassmorphism ── */
@@ -268,9 +268,6 @@
     .gallery-grid .item:hover .info {
       opacity: 1;
     }
-    .item:hover .info {
-  opacity: 1;
-}
     .gallery-grid .item:nth-child(1) {
       grid-column: span 2;
       grid-row: span 2;
@@ -355,6 +352,79 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* ── Counter ── */
+    .counter-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    @media (min-width: 768px) {
+      .counter-number {
+        font-size: 4.5rem;
+      }
+    }
+
+    /* ── Hiker's Code ── */
+    .code-card {
+      border-left: 4px solid #256ca0;
+      padding-left: 1.25rem;
+      transition: all 0.3s;
+    }
+    .code-card:hover {
+      border-left-color: #f48746;
+      padding-left: 1.5rem;
+    }
+
+    /* ── Weather Widget ── */
+    .weather-icon {
+      font-size: 3rem;
+      color: #256ca0;
+    }
+
+    /* ── Blog Card ── */
+    .blog-card {
+      transition: all 0.4s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(30, 66, 59, 0.12);
+    }
+    .blog-card .blog-image {
+      overflow: hidden;
+      border-radius: 1.2rem 1.2rem 0 0;
+    }
+    .blog-card .blog-image img {
+      transition: transform 0.6s ease;
+    }
+    .blog-card:hover .blog-image img {
+      transform: scale(1.05);
+    }
+
+    /* ── Parallax Divider ── */
+    .parallax-divider {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .parallax-divider .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 66, 59, 0.55);
+      background: linear-gradient(135deg, rgba(30, 66, 59, 0.7) 0%, rgba(37, 108, 160, 0.3) 100%);
+    }
+    @media (max-width: 768px) {
+      .parallax-divider {
+        background-attachment: scroll;
+      }
+    }
+
+    /* ── Active nav link ── */
+    .nav-link-active {
+      color: #e9831d !important;
+    }
   </style>
 </head>
 <body>
@@ -363,18 +433,19 @@
   <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="navbar">
     <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 md:h-20">
       <!-- Logo -->
-      <a href="#" class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
+      <a href="index.html" class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
         <i class="las la-mountain text-wa-deep-blue text-2xl"></i>
         <span class="text-white">Wild Rainier</span>
       </a>
 
       <!-- Desktop Links -->
-      <div class="hidden md:flex items-center gap-8 text-white/80 text-sm font-medium">
-        <a href="#about" class="hover:text-wa-deep-blue transition-colors">About</a>
-        <a href="#trails" class="hover:text-wa-deep-blue transition-colors">Trails</a>
-        <a href="#gallery" class="hover:text-wa-deep-blue transition-colors">Gallery</a>
-        <a href="#testimonials" class="hover:text-wa-deep-blue transition-colors">Reviews</a>
-        <a href="#contact" class="btn-primary text-sm py-2 px-5">
+      <div class="hidden md:flex items-center gap-6 text-white/80 text-sm font-medium">
+        <a href="index.html" class="nav-link-active transition-colors">Home</a>
+        <a href="about.html" class="hover:text-wa-deep-blue transition-colors">About</a>
+        <a href="trails.html" class="hover:text-wa-deep-blue transition-colors">Trails</a>
+        <a href="gallery.html" class="hover:text-wa-deep-blue transition-colors">Gallery</a>
+        <a href="blog.html" class="hover:text-wa-deep-blue transition-colors">Blog</a>
+        <a href="contact.html" class="btn-primary text-sm py-2 px-5">
           <i class="las la-compass mr-2"></i>Plan Trip
         </a>
       </div>
@@ -387,11 +458,12 @@
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden flex-col gap-4 px-6 py-6 bg-wa-green/95 backdrop-blur-xl border-t border-white/5 md:hidden">
-      <a href="#about" class="text-white/80 hover:text-wa-deep-blue transition-colors">About</a>
-      <a href="#trails" class="text-white/80 hover:text-wa-deep-blue transition-colors">Trails</a>
-      <a href="#gallery" class="text-white/80 hover:text-wa-deep-blue transition-colors">Gallery</a>
-      <a href="#testimonials" class="text-white/80 hover:text-wa-deep-blue transition-colors">Reviews</a>
-      <a href="#contact" class="btn-primary text-center text-sm py-2.5">Plan Trip</a>
+      <a href="index.html" class="text-wa-deep-blue transition-colors">Home</a>
+      <a href="about.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">About</a>
+      <a href="trails.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Trails</a>
+      <a href="gallery.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Gallery</a>
+      <a href="blog.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Blog</a>
+      <a href="contact.html" class="btn-primary text-center text-sm py-2.5">Plan Trip</a>
     </div>
   </nav>
 
@@ -402,11 +474,11 @@
       <div class="overlay"></div>
       <div class="relative z-10 max-w-4xl px-5 text-white">
         <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4"><i class="las la-mountain mr-2"></i>Mount Rainier</span>
-        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight text-shadow">Wild <span class="bg-wa-light-grayy">Washington</span></h1>
+        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">Wild <span class="text-wa-deep-blue">Washington</span></h1>
         <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light">Where ancient forests meet alpine peaks &amp; crystal blue waters.</p>
         <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a href="#trails" class="btn-primary"><i class="las la-hiking mr-2"></i>Explore Trails</a>
-          <a href="#contact" class="btn-outline-light"><i class="las la-envelope mr-2"></i>Get in Touch</a>
+          <a href="trails.html" class="btn-primary"><i class="las la-hiking mr-2"></i>Explore Trails</a>
+          <a href="contact.html" class="btn-outline-light"><i class="las la-envelope mr-2"></i>Get in Touch</a>
         </div>
       </div>
     </div>
@@ -415,11 +487,11 @@
       <div class="overlay"></div>
       <div class="relative z-10 max-w-4xl px-5 text-white">
         <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4"><i class="las la-tree mr-2"></i>Emerald Jungles</span>
-        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">Moss &amp; <span class="bg-wa-light-grayy">Mystery</span></h1>
+        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">Moss &amp; <span class="text-wa-deep-blue">Mystery</span></h1>
         <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light">Step into the lush, green heart of the Pacific Northwest.</p>
         <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a href="#gallery" class="btn-primary"><i class="las la-images mr-2"></i>View Gallery</a>
-          <a href="#about" class="btn-outline-light"><i class="las la-info-circle mr-2"></i>Learn More</a>
+          <a href="gallery.html" class="btn-primary"><i class="las la-images mr-2"></i>View Gallery</a>
+          <a href="about.html" class="btn-outline-light"><i class="las la-info-circle mr-2"></i>Learn More</a>
         </div>
       </div>
     </div>
@@ -428,11 +500,11 @@
       <div class="overlay"></div>
       <div class="relative z-10 max-w-4xl px-5 text-white">
         <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4"><i class="las la-tint mr-2"></i>Alpine Waters</span>
-        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">Blue <span class="bg-wa-light-grayy">Reflections</span></h1>
+        <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">Blue <span class="text-wa-deep-blue">Reflections</span></h1>
         <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light">Crystal clear lakes reflecting the majestic peaks above.</p>
         <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a href="#contact" class="btn-primary"><i class="las la-calendar-check mr-2"></i>Book a Tour</a>
-          <a href="#trails" class="btn-outline-light"><i class="las la-map-signs mr-2"></i>Find a Trail</a>
+          <a href="contact.html" class="btn-primary"><i class="las la-calendar-check mr-2"></i>Book a Tour</a>
+          <a href="trails.html" class="btn-outline-light"><i class="las la-map-signs mr-2"></i>Find a Trail</a>
         </div>
       </div>
     </div>
@@ -501,6 +573,41 @@
               <span>Best hikes: Maple Pass, Naches Peak</span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ WILDERNESS STATS COUNTERS ═══════ -->
+  <section class="py-16 md:py-20 px-5 bg-wa-green/95 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&h=400&fit=crop&crop=center'); background-size: cover; background-position: center;"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-chart-line mr-2"></i> By the Numbers</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Wilderness <span class="text-wa-deep-blue">in Data</span></h2>
+        <p class="text-white/60 max-w-2xl mx-auto mt-3 text-lg">The scale of Washington's untamed beauty, measured in moments and miles.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 mt-12 text-center">
+        <div class="glass-dark rounded-2xl p-6 border border-white/5 fade-up fade-up-d1">
+          <div class="counter-number text-wa-deep-blue" data-count="142">0</div>
+          <div class="text-white/50 text-sm font-card mt-1">Miles of Trail</div>
+          <div class="text-white/30 text-xs mt-2"><i class="las la-route"></i> Explored</div>
+        </div>
+        <div class="glass-dark rounded-2xl p-6 border border-white/5 fade-up fade-up-d2">
+          <div class="counter-number text-wa-orange" data-count="87">0</div>
+          <div class="text-white/50 text-sm font-card mt-1">Wildflower Species</div>
+          <div class="text-white/30 text-xs mt-2"><i class="las la-seedling"></i> In Bloom</div>
+        </div>
+        <div class="glass-dark rounded-2xl p-6 border border-white/5 fade-up fade-up-d3">
+          <div class="counter-number text-wa-soft-red" data-count="23">0</div>
+          <div class="text-white/50 text-sm font-card mt-1">Alpine Lakes</div>
+          <div class="text-white/30 text-xs mt-2"><i class="las la-tint"></i> Crystal Clear</div>
+        </div>
+        <div class="glass-dark rounded-2xl p-6 border border-white/5 fade-up fade-up-d4">
+          <div class="counter-number text-wa-periwinkle" data-count="9">0</div>
+          <div class="text-white/50 text-sm font-card mt-1">Peaks Over 8,000ft</div>
+          <div class="text-white/30 text-xs mt-2"><i class="las la-mountain"></i> Summits</div>
         </div>
       </div>
     </div>
@@ -578,20 +685,70 @@
       </div>
 
       <div class="text-center mt-10 fade-up">
-        <a href="#" class="text-wa-deep-blue font-semibold hover:text-white transition-colors inline-flex items-center gap-2">
+        <a href="trails.html" class="text-wa-deep-blue font-semibold hover:text-white transition-colors inline-flex items-center gap-2">
           View all trails <i class="las la-arrow-right"></i>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ═══════ GALLERY ═══════ -->
-  <section id="gallery" class="py-16 md:py-24 px-5 bg-wa-light-gray">
+  <!-- ═══════ PARALLAX DIVIDER — "THE WILD AWAITS" ═══════ -->
+  <section class="parallax-divider py-24 md:py-32 px-5" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&h=600&fit=crop&crop=center');">
+    <div class="overlay"></div>
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <span class="inline-block px-5 py-1.5 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-white/90 text-xs font-bold tracking-widest uppercase mb-6"><i class="las la-mountain mr-2"></i> The Call of the Wild</span>
+      <h2 class="font-display text-4xl md:text-6xl font-bold text-white leading-tight">
+        The <span class="text-wa-deep-blue">Wild</span> Awaits
+      </h2>
+      <p class="text-white/80 text-lg md:text-xl max-w-2xl mx-auto mt-4 font-light">Step beyond the trailhead. Breathe the ancient air. Find what you didn't know you were looking for.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="trails.html" class="btn-primary"><i class="las la-hiking mr-2"></i>Start Exploring</a>
+        <a href="about.html" class="btn-outline-light"><i class="las la-book-open mr-2"></i>Our Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ HIKER'S CODE — ETHICS ═══════ -->
+  <section class="py-16 md:py-24 px-5 bg-wa-light-gray">
     <div class="max-w-7xl mx-auto">
       <div class="text-center fade-up">
-        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-camera mr-2"></i> Gallery</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">Washington <span class="text-wa-red-orange">Through</span> the Lens</h2>
-        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">A visual journey across seasons, from purple springs to golden falls.</p>
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-leaf mr-2"></i> Ethics</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">The Hiker's <span class="text-wa-orange">Code</span></h2>
+        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">Principles to honor the wilderness and preserve it for generations.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
+        <div class="glass-light rounded-2xl p-6 code-card fade-up fade-up-d1 border border-wa-deep-blue/5">
+          <div class="text-3xl text-wa-deep-blue mb-3"><i class="las la-recycle"></i></div>
+          <h4 class="font-bold text-wa-green text-lg">Leave No Trace</h4>
+          <p class="text-wa-green/60 text-sm mt-1 font-card leading-relaxed">Pack it in, pack it out. Respect the land by leaving it as you found it.</p>
+        </div>
+        <div class="glass-light rounded-2xl p-6 code-card fade-up fade-up-d2 border border-wa-deep-blue/5">
+          <div class="text-3xl text-wa-orange mb-3"><i class="las la-eye"></i></div>
+          <h4 class="font-bold text-wa-green text-lg">Watch &amp; Wonder</h4>
+          <p class="text-wa-green/60 text-sm mt-1 font-card leading-relaxed">Observe wildlife from a distance. Their home is not a stage.</p>
+        </div>
+        <div class="glass-light rounded-2xl p-6 code-card fade-up fade-up-d3 border border-wa-deep-blue/5">
+          <div class="text-3xl text-wa-soft-red mb-3"><i class="las la-map"></i></div>
+          <h4 class="font-bold text-wa-green text-lg">Stay on Trail</h4>
+          <p class="text-wa-green/60 text-sm mt-1 font-card leading-relaxed">Protect fragile ecosystems by sticking to established paths.</p>
+        </div>
+        <div class="glass-light rounded-2xl p-6 code-card fade-up fade-up-d4 border border-wa-deep-blue/5">
+          <div class="text-3xl text-wa-periwinkle mb-3"><i class="las la-hand-holding-heart"></i></div>
+          <h4 class="font-bold text-wa-green text-lg">Share the Joy</h4>
+          <p class="text-wa-green/60 text-sm mt-1 font-card leading-relaxed">Be kind, yield to others, and spread the stoke of the outdoors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ GALLERY ═══════ -->
+  <section id="gallery" class="py-16 md:py-24 px-5 bg-wa-green">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-camera mr-2"></i> Gallery</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Washington <span class="text-wa-deep-blue">Through</span> the Lens</h2>
+        <p class="text-white/70 max-w-2xl mx-auto mt-3 text-lg">A visual journey across seasons, from purple springs to golden falls.</p>
       </div>
 
       <div class="gallery-grid mt-10">
@@ -620,51 +777,172 @@
           <div class="info"><i class="las la-leaf mr-2"></i> Autumn Path</div>
         </div>
       </div>
+
+      <div class="text-center mt-10 fade-up">
+        <a href="gallery.html" class="text-wa-deep-blue font-semibold hover:text-white transition-colors inline-flex items-center gap-2">
+          View full gallery <i class="las la-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ WEATHER & CONDITIONS ═══════ -->
+  <section class="py-16 md:py-20 px-5 bg-wa-light-gray">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-cloud-sun mr-2"></i> Conditions</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">Weather <span class="text-wa-soft-red">&amp;</span> Trail Conditions</h2>
+        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">Plan your adventure with real-time insights from the wilderness.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <div class="glass-light rounded-2xl p-6 text-center fade-up fade-up-d1 border border-wa-deep-blue/10">
+          <div class="weather-icon"><i class="las la-sun"></i></div>
+          <div class="text-3xl font-bold text-wa-green mt-2">68°F</div>
+          <div class="text-wa-green/60 text-sm font-card">Paradise · Sunny</div>
+          <div class="flex justify-center gap-4 mt-3 text-xs text-wa-green/50">
+            <span><i class="las la-wind mr-1"></i> 8 mph</span>
+            <span><i class="las la-tint mr-1"></i> 42%</span>
+          </div>
+        </div>
+        <div class="glass-light rounded-2xl p-6 text-center fade-up fade-up-d2 border border-wa-deep-blue/10">
+          <div class="weather-icon"><i class="las la-cloud-rain"></i></div>
+          <div class="text-3xl font-bold text-wa-green mt-2">54°F</div>
+          <div class="text-wa-green/60 text-sm font-card">Hoh Rainforest · Light Rain</div>
+          <div class="flex justify-center gap-4 mt-3 text-xs text-wa-green/50">
+            <span><i class="las la-wind mr-1"></i> 12 mph</span>
+            <span><i class="las la-tint mr-1"></i> 89%</span>
+          </div>
+        </div>
+        <div class="glass-light rounded-2xl p-6 text-center fade-up fade-up-d3 border border-wa-deep-blue/10">
+          <div class="weather-icon"><i class="las la-snowflake"></i></div>
+          <div class="text-3xl font-bold text-wa-green mt-2">32°F</div>
+          <div class="text-wa-green/60 text-sm font-card">Camp Muir · Snow</div>
+          <div class="flex justify-center gap-4 mt-3 text-xs text-wa-green/50">
+            <span><i class="las la-wind mr-1"></i> 25 mph</span>
+            <span><i class="las la-tint mr-1"></i> 76%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 glass-light rounded-2xl p-5 text-center max-w-3xl mx-auto border border-wa-deep-blue/10 fade-up">
+        <p class="text-wa-green/70 text-sm font-card"><i class="las la-exclamation-triangle text-wa-orange mr-2"></i> Trail updates: Skyline Trail is open. Lake Serene has snow above 4,000ft. Check conditions before you go.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ BLOG / JOURNAL PREVIEW ═══════ -->
+  <section class="py-16 md:py-24 px-5 bg-wa-green">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-pen-fancy mr-2"></i> Journal</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Latest <span class="text-wa-deep-blue">From the Trail</span></h2>
+        <p class="text-white/70 max-w-2xl mx-auto mt-3 text-lg">Stories, tips, and dispatches from the wild heart of Washington.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <article class="blog-card glass-dark rounded-2xl overflow-hidden border border-white/5 fade-up fade-up-d1">
+          <div class="blog-image h-52">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=400&fit=crop&crop=center" alt="Wildflower season" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-5 text-white">
+            <div class="flex items-center gap-3 text-xs text-white/40">
+              <span><i class="las la-calendar mr-1"></i> June 12, 2026</span>
+              <span><i class="las la-clock mr-1"></i> 4 min read</span>
+            </div>
+            <h3 class="font-display text-xl font-bold mt-2">Peak Wildflower Season Is Here</h3>
+            <p class="text-white/60 text-sm mt-2 leading-relaxed font-card">The meadows of Paradise are bursting with color. Here's where to find the best blooms right now.</p>
+            <a href="blog.html" class="inline-flex items-center gap-2 text-wa-deep-blue text-sm font-semibold mt-3 hover:text-white transition-colors">
+              Read More <i class="las la-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="blog-card glass-dark rounded-2xl overflow-hidden border border-white/5 fade-up fade-up-d2">
+          <div class="blog-image h-52">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&h=400&fit=crop&crop=center" alt="Lake Serene" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-5 text-white">
+            <div class="flex items-center gap-3 text-xs text-white/40">
+              <span><i class="las la-calendar mr-1"></i> May 28, 2026</span>
+              <span><i class="las la-clock mr-1"></i> 3 min read</span>
+            </div>
+            <h3 class="font-display text-xl font-bold mt-2">Lake Serene: A Hidden Gem</h3>
+            <p class="text-white/60 text-sm mt-2 leading-relaxed font-card">Turquoise waters, rugged cliffs, and a hike that rewards every step. Our guide to this alpine treasure.</p>
+            <a href="blog.html" class="inline-flex items-center gap-2 text-wa-deep-blue text-sm font-semibold mt-3 hover:text-white transition-colors">
+              Read More <i class="las la-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <article class="blog-card glass-dark rounded-2xl overflow-hidden border border-white/5 fade-up fade-up-d3">
+          <div class="blog-image h-52">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=400&fit=crop&crop=center" alt="Hoh Rainforest" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+          <div class="p-5 text-white">
+            <div class="flex items-center gap-3 text-xs text-white/40">
+              <span><i class="las la-calendar mr-1"></i> May 15, 2026</span>
+              <span><i class="las la-clock mr-1"></i> 5 min read</span>
+            </div>
+            <h3 class="font-display text-xl font-bold mt-2">The Magic of the Hoh</h3>
+            <p class="text-white/60 text-sm mt-2 leading-relaxed font-card">Moss-draped maples, misty mornings, and the quiet rhythm of one of the world's quietest places.</p>
+            <a href="blog.html" class="inline-flex items-center gap-2 text-wa-deep-blue text-sm font-semibold mt-3 hover:text-white transition-colors">
+              Read More <i class="las la-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center mt-10 fade-up">
+        <a href="blog.html" class="text-wa-deep-blue font-semibold hover:text-white transition-colors inline-flex items-center gap-2">
+          Read all posts <i class="las la-arrow-right"></i>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- ═══════ TESTIMONIALS ═══════ -->
-  <section id="testimonials" class="py-16 md:py-24 px-5 bg-wa-green">
+  <section id="testimonials" class="py-16 md:py-24 px-5 bg-wa-light-gray">
     <div class="max-w-7xl mx-auto">
       <div class="text-center fade-up">
-        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-quote-right mr-2"></i> Testimonials</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Hiker <span class="text-wa-deep-blue">Voices</span></h2>
-        <p class="text-white/70 max-w-2xl mx-auto mt-3 text-lg">Real stories from adventurers who found their wild in Washington.</p>
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-quote-right mr-2"></i> Testimonials</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">Hiker <span class="text-wa-orange">Voices</span></h2>
+        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">Real stories from adventurers who found their wild in Washington.</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6 mt-12">
-        <div class="glass-dark rounded-2xl p-6 fade-up fade-up-d1 hover:bg-wa-green/80 transition-all border border-white/5">
+        <div class="glass-light rounded-2xl p-6 fade-up fade-up-d1 border border-wa-deep-blue/5 hover:shadow-xl transition-shadow">
           <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
-          <p class="text-white/80 text-sm italic leading-relaxed font-card">“The Skyline Trail was breathtaking — wildflowers, glaciers, and that iconic view of Rainier. The guides made it unforgettable.”</p>
+          <p class="text-wa-green/70 text-sm italic leading-relaxed font-card">“The Skyline Trail was breathtaking — wildflowers, glaciers, and that iconic view of Rainier. The guides made it unforgettable.”</p>
           <div class="flex items-center gap-3 mt-4">
-            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/30 flex items-center justify-center text-white font-bold">JD</div>
+            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/20 flex items-center justify-center text-wa-deep-blue font-bold">JD</div>
             <div>
-              <div class="text-white font-semibold text-sm">Jessica D.</div>
-              <div class="text-white/50 text-xs">Seattle, WA</div>
+              <div class="text-wa-green font-semibold text-sm">Jessica D.</div>
+              <div class="text-wa-green/50 text-xs">Seattle, WA</div>
             </div>
           </div>
         </div>
 
-        <div class="glass-dark rounded-2xl p-6 fade-up fade-up-d2 hover:bg-wa-green/80 transition-all border border-white/5">
+        <div class="glass-light rounded-2xl p-6 fade-up fade-up-d2 border border-wa-deep-blue/5 hover:shadow-xl transition-shadow">
           <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
-          <p class="text-white/80 text-sm italic leading-relaxed font-card">“Walking through the Hoh Rainforest felt like stepping into another world. The moss, the silence, the green — pure magic.”</p>
+          <p class="text-wa-green/70 text-sm italic leading-relaxed font-card">“Walking through the Hoh Rainforest felt like stepping into another world. The moss, the silence, the green — pure magic.”</p>
           <div class="flex items-center gap-3 mt-4">
-            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/30 flex items-center justify-center text-white font-bold">MR</div>
+            <div class="w-10 h-10 rounded-full bg-wa-orange/20 flex items-center justify-center text-wa-orange font-bold">MR</div>
             <div>
-              <div class="text-white font-semibold text-sm">Miguel R.</div>
-              <div class="text-white/50 text-xs">Portland, OR</div>
+              <div class="text-wa-green font-semibold text-sm">Miguel R.</div>
+              <div class="text-wa-green/50 text-xs">Portland, OR</div>
             </div>
           </div>
         </div>
 
-        <div class="glass-dark rounded-2xl p-6 fade-up fade-up-d3 hover:bg-wa-green/80 transition-all border border-white/5">
+        <div class="glass-light rounded-2xl p-6 fade-up fade-up-d3 border border-wa-deep-blue/5 hover:shadow-xl transition-shadow">
           <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
-          <p class="text-white/80 text-sm italic leading-relaxed font-card">“Lake Serene is a challenge, but the turquoise water at the top is worth every step. Absolutely stunning.”</p>
+          <p class="text-wa-green/70 text-sm italic leading-relaxed font-card">“Lake Serene is a challenge, but the turquoise water at the top is worth every step. Absolutely stunning.”</p>
           <div class="flex items-center gap-3 mt-4">
-            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/30 flex items-center justify-center text-white font-bold">AK</div>
+            <div class="w-10 h-10 rounded-full bg-wa-soft-red/20 flex items-center justify-center text-wa-soft-red font-bold">AK</div>
             <div>
-              <div class="text-white font-semibold text-sm">Aisha K.</div>
-              <div class="text-white/50 text-xs">Vancouver, BC</div>
+              <div class="text-wa-green font-semibold text-sm">Aisha K.</div>
+              <div class="text-wa-green/50 text-xs">Vancouver, BC</div>
             </div>
           </div>
         </div>
@@ -673,41 +951,41 @@
   </section>
 
   <!-- ═══════ CONTACT / BOOKING ═══════ -->
-  <section id="contact" class="py-16 md:py-24 px-5 bg-wa-light-gray">
+  <section id="contact" class="py-16 md:py-24 px-5 bg-wa-green">
     <div class="max-w-6xl mx-auto">
       <div class="text-center fade-up">
-        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-paper-plane mr-2"></i> Contact</span>
-        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">Plan Your <span class="text-wa-deep-blue">Adventure</span></h2>
-        <p class="text-wa-green/70 max-w-2xl mx-auto mt-3 text-lg">Ready to explore the wild? Reach out and let's make it happen.</p>
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-paper-plane mr-2"></i> Contact</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Plan Your <span class="text-wa-deep-blue">Adventure</span></h2>
+        <p class="text-white/70 max-w-2xl mx-auto mt-3 text-lg">Ready to explore the wild? Reach out and let's make it happen.</p>
       </div>
 
       <div class="grid md:grid-cols-5 gap-8 mt-12">
         <!-- Form -->
-        <div class="md:col-span-3 glass-light rounded-2xl p-8 shadow-xl fade-up fade-up-d1 border border-wa-deep-blue/10">
+        <div class="md:col-span-3 glass-dark rounded-2xl p-8 shadow-xl fade-up fade-up-d1 border border-white/5">
           <form id="contactForm" onsubmit="event.preventDefault(); alert('Thank you! Your adventure request has been sent. We\'ll be in touch shortly.');">
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-user mr-1"></i> Name</label>
-                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60" placeholder="Your name" />
+                <label class="block text-white/80 text-sm font-medium mb-1"><i class="las la-user mr-1"></i> Name</label>
+                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-white/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/10 text-white placeholder-white/30" placeholder="Your name" />
               </div>
               <div>
-                <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-envelope mr-1"></i> Email</label>
-                <input type="email" required class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60" placeholder="you@example.com" />
+                <label class="block text-white/80 text-sm font-medium mb-1"><i class="las la-envelope mr-1"></i> Email</label>
+                <input type="email" required class="w-full px-4 py-3 rounded-xl border border-white/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/10 text-white placeholder-white/30" placeholder="you@example.com" />
               </div>
             </div>
             <div class="mt-4">
-              <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-hiking mr-1"></i> Preferred Trail</label>
-              <select class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60">
-                <option>Skyline Trail (Mt. Rainier)</option>
-                <option>Hoh Rainforest (Olympic)</option>
-                <option>Lake Serene (Cascades)</option>
-                <option>Maple Pass (North Cascades)</option>
-                <option>Other (Tell us below)</option>
+              <label class="block text-white/80 text-sm font-medium mb-1"><i class="las la-hiking mr-1"></i> Preferred Trail</label>
+              <select class="w-full px-4 py-3 rounded-xl border border-white/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/10 text-white">
+                <option class="text-wa-green">Skyline Trail (Mt. Rainier)</option>
+                <option class="text-wa-green">Hoh Rainforest (Olympic)</option>
+                <option class="text-wa-green">Lake Serene (Cascades)</option>
+                <option class="text-wa-green">Maple Pass (North Cascades)</option>
+                <option class="text-wa-green">Other (Tell us below)</option>
               </select>
             </div>
             <div class="mt-4">
-              <label class="block text-wa-green text-sm font-medium mb-1"><i class="las la-comment mr-1"></i> Message</label>
-              <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60" placeholder="Tell us about your dream hike..."></textarea>
+              <label class="block text-white/80 text-sm font-medium mb-1"><i class="las la-comment mr-1"></i> Message</label>
+              <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-white/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/10 text-white placeholder-white/30" placeholder="Tell us about your dream hike..."></textarea>
             </div>
             <button type="submit" class="btn-primary w-full mt-4 text-center flex items-center justify-center gap-2 py-3.5">
               <i class="las la-paper-plane"></i> Send Request
@@ -715,23 +993,23 @@
           </form>
         </div>
 
-        <!-- Contact Info & Map -->
+        <!-- Contact Info -->
         <div class="md:col-span-2 flex flex-col gap-6 fade-up fade-up-d2">
-          <div class="glass-light rounded-2xl p-6 flex-1 shadow-xl border border-wa-deep-blue/10">
-            <h4 class="font-bold text-wa-green text-lg flex items-center gap-2"><i class="las la-id-card text-wa-deep-blue"></i> Get in Touch</h4>
-            <ul class="mt-4 space-y-4 text-wa-green/80 text-sm">
+          <div class="glass-dark rounded-2xl p-6 flex-1 shadow-xl border border-white/5">
+            <h4 class="font-bold text-white text-lg flex items-center gap-2"><i class="las la-id-card text-wa-deep-blue"></i> Get in Touch</h4>
+            <ul class="mt-4 space-y-4 text-white/70 text-sm">
               <li><i class="las la-map-pin text-wa-deep-blue w-6"></i> Ashford, WA · Near Mt. Rainier</li>
               <li><i class="las la-phone text-wa-deep-blue w-6"></i> +1 (555) 742-8930</li>
               <li><i class="las la-envelope text-wa-deep-blue w-6"></i> info@wildrainier.com</li>
               <li><i class="lab la-instagram text-wa-deep-blue w-6"></i> @wildrainier</li>
             </ul>
             <div class="mt-6 flex gap-3 flex-wrap">
-              <span class="px-3 py-1 bg-wa-periwinkle/30 text-wa-deep-blue rounded-full text-xs font-bold"><i class="lab la-facebook mr-1"></i> Facebook</span>
-              <span class="px-3 py-1 bg-wa-periwinkle/30 text-wa-deep-blue rounded-full text-xs font-bold"><i class="lab la-twitter mr-1"></i> Twitter</span>
-              <span class="px-3 py-1 bg-wa-periwinkle/30 text-wa-deep-blue rounded-full text-xs font-bold"><i class="lab la-youtube mr-1"></i> YouTube</span>
+              <span class="px-3 py-1 bg-white/5 text-white/60 rounded-full text-xs font-bold border border-white/5"><i class="lab la-facebook mr-1"></i> Facebook</span>
+              <span class="px-3 py-1 bg-white/5 text-white/60 rounded-full text-xs font-bold border border-white/5"><i class="lab la-twitter mr-1"></i> Twitter</span>
+              <span class="px-3 py-1 bg-white/5 text-white/60 rounded-full text-xs font-bold border border-white/5"><i class="lab la-youtube mr-1"></i> YouTube</span>
             </div>
           </div>
-          <div class="glass-light rounded-2xl p-4 shadow-xl h-48 overflow-hidden relative border border-wa-deep-blue/10">
+          <div class="glass-dark rounded-2xl p-4 shadow-xl h-48 overflow-hidden relative border border-white/5">
             <iframe class="absolute inset-0 w-full h-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21406.8758356124!2d-121.77798447930979!3d46.7580733021754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5491b2c7b4a3d7e1%3A0x6c1b3b2b3b2b3b2b!2sMount%20Rainier!5e0!3m2!1sen!2sus!4v1684123456789" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
@@ -759,15 +1037,16 @@
         <div>
           <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Explore</h6>
           <ul class="mt-3 space-y-2 text-white/50 text-sm">
-            <li><a href="#trails" class="hover:text-wa-deep-blue transition-colors">Trails</a></li>
-            <li><a href="#gallery" class="hover:text-wa-deep-blue transition-colors">Gallery</a></li>
-            <li><a href="#testimonials" class="hover:text-wa-deep-blue transition-colors">Reviews</a></li>
+            <li><a href="trails.html" class="hover:text-wa-deep-blue transition-colors">Trails</a></li>
+            <li><a href="gallery.html" class="hover:text-wa-deep-blue transition-colors">Gallery</a></li>
+            <li><a href="blog.html" class="hover:text-wa-deep-blue transition-colors">Blog</a></li>
+            <li><a href="about.html" class="hover:text-wa-deep-blue transition-colors">About</a></li>
           </ul>
         </div>
         <div>
           <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Support</h6>
           <ul class="mt-3 space-y-2 text-white/50 text-sm">
-            <li><a href="#contact" class="hover:text-wa-deep-blue transition-colors">Contact Us</a></li>
+            <li><a href="contact.html" class="hover:text-wa-deep-blue transition-colors">Contact Us</a></li>
             <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Privacy Policy</a></li>
             <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Terms of Service</a></li>
           </ul>
@@ -868,6 +1147,34 @@
         rootMargin: '0px 0px -40px 0px'
       });
       fadeEls.forEach(el => observer.observe(el));
+
+      // ── COUNTER ANIMATION ──
+      const counters = document.querySelectorAll('.counter-number');
+      let countersAnimated = false;
+
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !countersAnimated) {
+            countersAnimated = true;
+            counters.forEach(counter => {
+              const target = parseInt(counter.dataset.count);
+              let current = 0;
+              const increment = Math.ceil(target / 60);
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                  counter.textContent = target + '+';
+                  clearInterval(timer);
+                } else {
+                  counter.textContent = current + '+';
+                }
+              }, 25);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      counters.forEach(c => counterObserver.observe(c));
 
       // ── GALLERY LIGHTBOX ──
       document.querySelectorAll('.gallery-grid .item').forEach(item => {
