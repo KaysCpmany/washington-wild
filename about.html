@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Wild Rainier</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+
+  <!-- Icon8 / Line Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome@1.3.0/dist/line-awesome/css/line-awesome.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Custom Theme ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #dcdbd9;
+      color: #1e423b;
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-card {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ── Colors ── */
+    .bg-wa-green {
+      background-color: #1e423b;
+    }
+    .bg-wa-orange {
+      background-color: #f48746;
+    }
+    .bg-wa-red-orange {
+      background-color: #d75d46;
+    }
+    .bg-wa-soft-red {
+      background-color: #d98f86;
+    }
+    .bg-wa-light-gray {
+      background-color: #dcdbd9;
+    }
+    .bg-wa-periwinkle {
+      background-color: #c0cbdd;
+    }
+    .bg-wa-deep-blue {
+      background-color: #25a06f;
+    }
+    .text-wa-green {
+      color: #1e423b;
+    }
+    .text-wa-orange {
+      color: #f48746;
+    }
+    .text-wa-red-orange {
+      color: #d75d46;
+    }
+    .text-wa-soft-red {
+      color: #d98f86;
+    }
+    .text-wa-deep-blue {
+      color: #e9831d;
+    }
+    .text-wa-periwinkle {
+      color: #c0cbdd;
+    }
+
+    /* ── Glass ── */
+    .glass-light {
+      background: rgba(255, 255, 255, 0.70);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(37, 108, 160, 0.15);
+      box-shadow: 0 8px 32px rgba(30, 66, 59, 0.08);
+    }
+    .glass-dark {
+      background: rgba(30, 66, 59, 0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: #256ca0;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(37, 108, 160, 0.35);
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: #1a4f7a;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(37, 108, 160, 0.40);
+    }
+    .btn-outline-dark {
+      background: transparent;
+      color: #1e423b;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      border: 1.5px solid #1e423b;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline-dark:hover {
+      background: #1e423b;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-outline-light {
+      background: transparent;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #dcdbd9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #256ca0;
+      border-radius: 60px;
+    }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Timeline ── */
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-left: 2px solid rgba(37, 108, 160, 0.2);
+    }
+    .timeline-item:last-child {
+      border-left: 2px solid transparent;
+      padding-bottom: 0;
+    }
+    .timeline-item .dot {
+      position: absolute;
+      left: -8px;
+      top: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 60px;
+      background: #256ca0;
+      border: 3px solid #dcdbd9;
+      box-shadow: 0 0 0 2px #256ca0;
+    }
+    .timeline-item .dot.orange {
+      background: #f48746;
+      box-shadow: 0 0 0 2px #f48746;
+    }
+    .timeline-item .dot.soft-red {
+      background: #d98f86;
+      box-shadow: 0 0 0 2px #d98f86;
+    }
+
+    /* ── Team card ── */
+    .team-card {
+      transition: all 0.4s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(30, 66, 59, 0.12);
+    }
+    .team-card .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 60px;
+      object-fit: cover;
+      border: 3px solid rgba(37, 108, 160, 0.2);
+      transition: border-color 0.3s;
+    }
+    .team-card:hover .avatar {
+      border-color: #256ca0;
+    }
+
+    /* ── Parallax divider ── */
+    .parallax-divider {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .parallax-divider .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 66, 59, 0.55);
+      background: linear-gradient(135deg, rgba(30, 66, 59, 0.7) 0%, rgba(37, 108, 160, 0.3) 100%);
+    }
+    @media (max-width: 768px) {
+      .parallax-divider {
+        background-attachment: scroll;
+      }
+    }
+
+    /* ── Stats ── */
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    @media (min-width: 768px) {
+      .stat-number {
+        font-size: 4.5rem;
+      }
+    }
+
+    /* ── Nav active ── */
+    .nav-link-active {
+      color: #e9831d !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ NAVIGATION ═══════ -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-wa-green/95 shadow-lg" id="navbar">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 md:h-20">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
+        <i class="las la-mountain text-wa-deep-blue text-2xl"></i>
+        <span class="text-white">Wild Rainier</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center gap-6 text-white/80 text-sm font-medium">
+        <a href="index.html" class="hover:text-wa-deep-blue transition-colors">Home</a>
+        <a href="about.html" class="nav-link-active transition-colors">About</a>
+        <a href="trails.html" class="hover:text-wa-deep-blue transition-colors">Trails</a>
+        <a href="gallery.html" class="hover:text-wa-deep-blue transition-colors">Gallery</a>
+        <a href="blog.html" class="hover:text-wa-deep-blue transition-colors">Blog</a>
+        <a href="contact.html" class="btn-primary text-sm py-2 px-5">
+          <i class="las la-compass mr-2"></i>Plan Trip
+        </a>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button id="menuToggle" class="md:hidden text-white/80 hover:text-white transition-colors p-1" aria-label="Toggle menu">
+        <i class="las la-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden flex-col gap-4 px-6 py-6 bg-wa-green/95 backdrop-blur-xl border-t border-white/5 md:hidden">
+      <a href="index.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Home</a>
+      <a href="about.html" class="text-wa-deep-blue transition-colors">About</a>
+      <a href="trails.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Trails</a>
+      <a href="gallery.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Gallery</a>
+      <a href="blog.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Blog</a>
+      <a href="contact.html" class="btn-primary text-center text-sm py-2.5">Plan Trip</a>
+    </div>
+  </nav>
+
+  <!-- ═══════ ABOUT HERO ═══════ -->
+  <section class="relative min-h-[70vh] flex items-center justify-center px-5" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1600&h=800&fit=crop&crop=center'); background-size: cover; background-position: center 30%;">
+    <div class="absolute inset-0 bg-gradient-to-b from-wa-green/20 via-wa-green/40 to-wa-green/70"></div>
+    <div class="relative z-10 max-w-4xl text-center text-white pt-20">
+      <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4">
+        <i class="las la-leaf mr-2"></i> Our Story
+      </span>
+      <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">
+        Born from the <span class="text-wa-deep-blue">Wild</span>
+      </h1>
+      <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light leading-relaxed">
+        Wild Rainier was forged in the misty valleys and alpine peaks of Washington — a love letter to the untamed beauty of the Pacific Northwest.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="#story" class="btn-primary"><i class="las la-book-open mr-2"></i>Read Our Story</a>
+        <a href="#team" class="btn-outline-light"><i class="las la-users mr-2"></i>Meet the Team</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ OUR STORY — THE NARRATIVE ═══════ -->
+  <section id="story" class="py-20 md:py-28 px-5 bg-wa-light-gray">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid md:grid-cols-5 gap-12 items-center">
+        <div class="md:col-span-3 fade-up">
+          <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-quote-left mr-2"></i> The Beginning</span>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2 leading-tight">
+            A Journey <span class="text-wa-orange">Into</span> the Mist
+          </h2>
+          <div class="space-y-4 mt-6 text-wa-green/80 text-base leading-relaxed font-card">
+            <p>
+              Wild Rainier began not in a boardroom, but on a windswept ridge above Paradise, 
+              where the clouds parted to reveal the sprawling emerald expanse of Washington's 
+              wilderness. That moment — the kind that steals your breath and rewires your soul — 
+              became the seed of something bigger.
+            </p>
+            <p>
+              Founded in 2018 by a small collective of guides, photographers, and conservationists, 
+              our mission is simple: to connect people with the raw, unfiltered beauty of the Pacific 
+              Northwest. We believe that the wild is not a place to be conquered, but a companion to 
+              be walked beside.
+            </p>
+            <p>
+              Today, we curate experiences that honor the land — from the moss-draped cathedrals of 
+              the Hoh Rainforest to the icy grandeur of Mount Rainier's glaciers. Every trail we share, 
+              every story we tell, is rooted in respect for the ecosystems that make Washington 
+              one of the most breathtaking places on Earth.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a href="trails.html" class="btn-primary"><i class="las la-hiking mr-2"></i>Explore Our Trails</a>
+            <a href="contact.html" class="btn-outline-dark"><i class="las la-envelope mr-2"></i>Get in Touch</a>
+          </div>
+        </div>
+        <div class="md:col-span-2 fade-up fade-up-d1">
+          <div class="glass-light rounded-3xl overflow-hidden shadow-2xl border border-wa-deep-blue/10">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=600&fit=crop&crop=center" alt="Hoh Rainforest" class="w-full h-80 object-cover" loading="lazy" />
+            <div class="p-6 bg-white/50">
+              <div class="flex items-center gap-3 text-sm text-wa-green/60">
+                <i class="las la-map-pin text-wa-deep-blue"></i>
+                <span>Hoh Rainforest, Olympic NP</span>
+              </div>
+              <p class="text-wa-green/70 text-sm mt-1 font-card italic">"The place where the green swallows you whole."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ MISSION & VALUES ═══════ -->
+  <section class="py-20 md:py-28 px-5 bg-wa-green">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-bullseye mr-2"></i> Our Compass</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">
+          Mission <span class="text-wa-deep-blue">&amp;</span> Values
+        </h2>
+        <p class="text-white/60 max-w-2xl mx-auto mt-3 text-lg">The principles that guide every step we take into the wild.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <div class="glass-dark rounded-2xl p-8 text-center border border-white/5 fade-up fade-up-d1 hover:bg-wa-green/90 transition-all group">
+          <div class="text-5xl text-wa-deep-blue mb-4 group-hover:scale-110 transition-transform"><i class="las la-hand-holding-heart"></i></div>
+          <h3 class="text-white font-display text-2xl font-bold">Stewardship</h3>
+          <p class="text-white/60 text-sm mt-2 leading-relaxed font-card">We protect what we love. Every trail we share is paired with a commitment to conservation and Leave No Trace ethics.</p>
+        </div>
+        <div class="glass-dark rounded-2xl p-8 text-center border border-white/5 fade-up fade-up-d2 hover:bg-wa-green/90 transition-all group">
+          <div class="text-5xl text-wa-orange mb-4 group-hover:scale-110 transition-transform"><i class="las la-people-arrows"></i></div>
+          <h3 class="text-white font-display text-2xl font-bold">Community</h3>
+          <p class="text-white/60 text-sm mt-2 leading-relaxed font-card">The wild is better together. We foster a community of hikers who uplift, inspire, and support one another.</p>
+        </div>
+        <div class="glass-dark rounded-2xl p-8 text-center border border-white/5 fade-up fade-up-d3 hover:bg-wa-green/90 transition-all group">
+          <div class="text-5xl text-wa-soft-red mb-4 group-hover:scale-110 transition-transform"><i class="las la-compass"></i></div>
+          <h3 class="text-white font-display text-2xl font-bold">Exploration</h3>
+          <p class="text-white/60 text-sm mt-2 leading-relaxed font-card">Curiosity is our compass. We seek out the hidden gems, the quiet trails, and the moments that leave us speechless.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ STATS — THE IMPACT ═══════ -->
+  <section class="py-16 md:py-20 px-5 bg-wa-light-gray relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&h=400&fit=crop&crop=center'); background-size: cover; background-position: center;"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-chart-bar mr-2"></i> Impact</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">By the <span class="text-wa-red-orange">Numbers</span></h2>
+        <p class="text-wa-green/60 max-w-2xl mx-auto mt-3 text-lg">The footprint we've made, measured in moments and miles.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mt-12 text-center">
+        <div class="glass-light rounded-2xl p-6 border border-wa-deep-blue/5 fade-up fade-up-d1">
+          <div class="stat-number text-wa-deep-blue" data-count="142">0</div>
+          <div class="text-wa-green/60 text-sm font-card mt-1">Trails Explored</div>
+          <div class="text-wa-green/30 text-xs mt-2"><i class="las la-route"></i> Miles of Wonder</div>
+        </div>
+        <div class="glass-light rounded-2xl p-6 border border-wa-deep-blue/5 fade-up fade-up-d2">
+          <div class="stat-number text-wa-orange" data-count="12">0</div>
+          <div class="text-wa-green/60 text-sm font-card mt-1">Years Guiding</div>
+          <div class="text-wa-green/30 text-xs mt-2"><i class="las la-clock"></i> Since 2018</div>
+        </div>
+        <div class="glass-light rounded-2xl p-6 border border-wa-deep-blue/5 fade-up fade-up-d3">
+          <div class="stat-number text-wa-soft-red" data-count="2800">0</div>
+          <div class="text-wa-green/60 text-sm font-card mt-1">Happy Hikers</div>
+          <div class="text-wa-green/30 text-xs mt-2"><i class="las la-smile"></i> & Counting</div>
+        </div>
+        <div class="glass-light rounded-2xl p-6 border border-wa-deep-blue/5 fade-up fade-up-d4">
+          <div class="stat-number text-wa-periwinkle" data-count="23">0</div>
+          <div class="text-wa-green/60 text-sm font-card mt-1">Conservation Projects</div>
+          <div class="text-wa-green/30 text-xs mt-2"><i class="las la-tree"></i> Protected</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TIMELINE — OUR JOURNEY ═══════ -->
+  <section class="py-20 md:py-28 px-5 bg-wa-green">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-timeline mr-2"></i> Milestones</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">Our <span class="text-wa-deep-blue">Journey</span></h2>
+        <p class="text-white/60 max-w-2xl mx-auto mt-3 text-lg">The path that brought us here — from a single ridge to a community of thousands.</p>
+      </div>
+
+      <div class="mt-12 space-y-0">
+        <!-- 2018 -->
+        <div class="timeline-item fade-up fade-up-d1">
+          <div class="dot"></div>
+          <div class="glass-dark rounded-2xl p-6 border border-white/5 hover:bg-wa-green/90 transition-all">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="text-wa-deep-blue font-display text-3xl font-bold">2018</span>
+              <span class="px-3 py-1 rounded-full bg-wa-deep-blue/20 text-wa-deep-blue text-xs font-bold tracking-wider">THE BEGINNING</span>
+            </div>
+            <p class="text-white/70 text-sm mt-2 leading-relaxed font-card">Wild Rainier is founded by a small group of guides who shared a vision: to make the wild accessible, respectful, and unforgettable.</p>
+          </div>
+        </div>
+
+        <!-- 2020 -->
+        <div class="timeline-item fade-up fade-up-d2">
+          <div class="dot orange"></div>
+          <div class="glass-dark rounded-2xl p-6 border border-white/5 hover:bg-wa-green/90 transition-all">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="text-wa-orange font-display text-3xl font-bold">2020</span>
+              <span class="px-3 py-1 rounded-full bg-wa-orange/20 text-wa-orange text-xs font-bold tracking-wider">EXPANSION</span>
+            </div>
+            <p class="text-white/70 text-sm mt-2 leading-relaxed font-card">We expanded beyond Rainier to include the Olympic Peninsula, North Cascades, and the Columbia River Gorge — bringing more of Washington's wild to the world.</p>
+          </div>
+        </div>
+
+        <!-- 2022 -->
+        <div class="timeline-item fade-up fade-up-d3">
+          <div class="dot soft-red"></div>
+          <div class="glass-dark rounded-2xl p-6 border border-white/5 hover:bg-wa-green/90 transition-all">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="text-wa-soft-red font-display text-3xl font-bold">2022</span>
+              <span class="px-3 py-1 rounded-full bg-wa-soft-red/20 text-wa-soft-red text-xs font-bold tracking-wider">COMMUNITY</span>
+            </div>
+            <p class="text-white/70 text-sm mt-2 leading-relaxed font-card">Our community surpassed 2,500 hikers. We launched our conservation initiative, partnering with local organizations to protect fragile alpine ecosystems.</p>
+          </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="timeline-item fade-up fade-up-d4">
+          <div class="dot"></div>
+          <div class="glass-dark rounded-2xl p-6 border border-white/5 hover:bg-wa-green/90 transition-all">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="text-wa-deep-blue font-display text-3xl font-bold">2024</span>
+              <span class="px-3 py-1 rounded-full bg-wa-deep-blue/20 text-wa-deep-blue text-xs font-bold tracking-wider">IMPACT</span>
+            </div>
+            <p class="text-white/70 text-sm mt-2 leading-relaxed font-card">We planted over 5,000 native trees, restored 12 miles of trail, and launched our youth wilderness program — inspiring the next generation of stewards.</p>
+          </div>
+        </div>
+
+        <!-- 2026 -->
+        <div class="timeline-item fade-up fade-up-d5">
+          <div class="dot orange"></div>
+          <div class="glass-dark rounded-2xl p-6 border border-white/5 hover:bg-wa-green/90 transition-all">
+            <div class="flex flex-wrap items-center gap-3">
+              <span class="text-wa-orange font-display text-3xl font-bold">2026</span>
+              <span class="px-3 py-1 rounded-full bg-wa-orange/20 text-wa-orange text-xs font-bold tracking-wider">TODAY</span>
+            </div>
+            <p class="text-white/70 text-sm mt-2 leading-relaxed font-card">Wild Rainier is now a trusted name in Pacific Northwest hiking — rooted in community, guided by wonder, and always looking toward the next ridge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ PARALLAX DIVIDER — "ROOTED IN WONDER" ═══════ -->
+  <section class="parallax-divider py-24 md:py-32 px-5" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1600&h=600&fit=crop&crop=center');">
+    <div class="overlay"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <span class="inline-block px-5 py-1.5 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-white/90 text-xs font-bold tracking-widest uppercase mb-6"><i class="las la-seedling mr-2"></i> Rooted in Wonder</span>
+      <h2 class="font-display text-4xl md:text-6xl font-bold text-white leading-tight">
+        The <span class="text-wa-deep-blue">Wild</span> is Our Home
+      </h2>
+      <p class="text-white/80 text-lg max-w-2xl mx-auto mt-4 font-light">And we're just getting started. Every trail, every story, every step — it's all in service of the land that shapes us.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ TEAM — THE GUIDES ═══════ -->
+  <section id="team" class="py-20 md:py-28 px-5 bg-wa-light-gray">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-users mr-2"></i> The Team</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">
+          The <span class="text-wa-orange">Hearts</span> Behind the Trails
+        </h2>
+        <p class="text-wa-green/60 max-w-2xl mx-auto mt-3 text-lg">Guides, storytellers, and stewards who live and breathe the Washington wild.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        <!-- Team 1 -->
+        <div class="glass-light rounded-2xl p-6 text-center team-card border border-wa-deep-blue/5 fade-up fade-up-d1">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=center&auto=format" alt="Elias" class="avatar mx-auto" loading="lazy" />
+          <h4 class="font-display text-xl font-bold text-wa-green mt-4">Elias Kane</h4>
+          <div class="text-wa-deep-blue text-sm font-semibold">Founder &amp; Lead Guide</div>
+          <p class="text-wa-green/60 text-xs mt-2 font-card leading-relaxed">20 years in the Cascades. Elias knows every ridge, every wildflower, and every quiet spot where the light hits just right.</p>
+          <div class="flex justify-center gap-3 mt-3 text-wa-green/30">
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-instagram"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Team 2 -->
+        <div class="glass-light rounded-2xl p-6 text-center team-card border border-wa-deep-blue/5 fade-up fade-up-d2">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=center&auto=format" alt="Maya" class="avatar mx-auto" loading="lazy" />
+          <h4 class="font-display text-xl font-bold text-wa-green mt-4">Maya Chen</h4>
+          <div class="text-wa-orange text-sm font-semibold">Photographer &amp; Storyteller</div>
+          <p class="text-wa-green/60 text-xs mt-2 font-card leading-relaxed">Maya's lens captures the soul of the wild — from misty mornings to golden alpine light. Her work has been featured in Outside Magazine.</p>
+          <div class="flex justify-center gap-3 mt-3 text-wa-green/30">
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-instagram"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Team 3 -->
+        <div class="glass-light rounded-2xl p-6 text-center team-card border border-wa-deep-blue/5 fade-up fade-up-d3">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=center&auto=format" alt="James" class="avatar mx-auto" loading="lazy" />
+          <h4 class="font-display text-xl font-bold text-wa-green mt-4">James O'Malley</h4>
+          <div class="text-wa-soft-red text-sm font-semibold">Conservation Lead</div>
+          <p class="text-wa-green/60 text-xs mt-2 font-card leading-relaxed">James spent a decade with the National Park Service. Now he leads our restoration projects and ensures every trail we touch stays wild.</p>
+          <div class="flex justify-center gap-3 mt-3 text-wa-green/30">
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-instagram"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Team 4 -->
+        <div class="glass-light rounded-2xl p-6 text-center team-card border border-wa-deep-blue/5 fade-up fade-up-d4">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=center&auto=format" alt="Priya" class="avatar mx-auto" loading="lazy" />
+          <h4 class="font-display text-xl font-bold text-wa-green mt-4">Priya Desai</h4>
+          <div class="text-wa-periwinkle text-sm font-semibold">Community &amp; Events</div>
+          <p class="text-wa-green/60 text-xs mt-2 font-card leading-relaxed">Priya builds the bridges — connecting hikers, hosting events, and making sure everyone feels welcome in the wild.</p>
+          <div class="flex justify-center gap-3 mt-3 text-wa-green/30">
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-instagram"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TESTIMONIALS — WHAT PEOPLE SAY ═══════ -->
+  <section class="py-16 md:py-20 px-5 bg-wa-green">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-quote-right mr-2"></i> Voices</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">What Our <span class="text-wa-deep-blue">Community</span> Says</h2>
+        <p class="text-white/60 max-w-2xl mx-auto mt-3 text-lg">Real stories from hikers who found their wild with us.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6 mt-12">
+        <div class="glass-dark rounded-2xl p-6 border border-white/5 fade-up fade-up-d1">
+          <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
+          <p class="text-white/80 text-sm italic leading-relaxed font-card">“Wild Rainier didn't just show me the trails — they showed me how to see the forest. The guides are passionate, knowledgeable, and genuinely care.”</p>
+          <div class="flex items-center gap-3 mt-4">
+            <div class="w-10 h-10 rounded-full bg-wa-deep-blue/20 flex items-center justify-center text-wa-deep-blue font-bold text-sm">SG</div>
+            <div>
+              <div class="text-white font-semibold text-sm">Sarah G.</div>
+              <div class="text-white/40 text-xs">Portland, OR · 12 hikes</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-dark rounded-2xl p-6 border border-white/5 fade-up fade-up-d2">
+          <div class="flex text-wa-orange mb-3"><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i></div>
+          <p class="text-white/80 text-sm italic leading-relaxed font-card">“I've hiked all over the world, but Washington with Wild Rainier was something special. The attention to detail, the stories, the quiet moments — unforgettable.”</p>
+          <div class="flex items-center gap-3 mt-4">
+            <div class="w-10 h-10 rounded-full bg-wa-orange/20 flex items-center justify-center text-wa-orange font-bold text-sm">TR</div>
+            <div>
+              <div class="text-white font-semibold text-sm">Tom R.</div>
+              <div class="text-white/40 text-xs">Denver, CO · 8 hikes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA — JOIN THE JOURNEY ═══════ -->
+  <section class="py-16 md:py-24 px-5 bg-wa-light-gray">
+    <div class="max-w-4xl mx-auto text-center fade-up">
+      <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-compass mr-2"></i> Join Us</span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">
+        Ready to <span class="text-wa-orange">Roam</span> the Wild?
+      </h2>
+      <p class="text-wa-green/60 text-lg max-w-2xl mx-auto mt-3 font-card">Whether you're a first-time hiker or a seasoned summit-seeker, we'd love to walk beside you. Let's find your next trail.</p>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="trails.html" class="btn-primary"><i class="las la-hiking mr-2"></i>Explore Trails</a>
+        <a href="contact.html" class="btn-outline-dark"><i class="las la-paper-plane mr-2"></i>Plan Your Trip</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="bg-wa-green border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-5 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
+            <i class="las la-mountain text-wa-deep-blue text-2xl"></i>
+            <span>Wild Rainier</span>
+          </div>
+          <p class="text-white/50 text-sm mt-3 max-w-xs leading-relaxed font-card">Inspired by the raw beauty of Washington — from the icy peaks of Rainier to the emerald depths of the Hoh.</p>
+          <div class="flex gap-4 mt-4 text-white/40">
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-instagram text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-facebook text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-twitter text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-youtube text-lg"></i></a>
+          </div>
+        </div>
+        <div>
+          <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Explore</h6>
+          <ul class="mt-3 space-y-2 text-white/50 text-sm">
+            <li><a href="trails.html" class="hover:text-wa-deep-blue transition-colors">Trails</a></li>
+            <li><a href="gallery.html" class="hover:text-wa-deep-blue transition-colors">Gallery</a></li>
+            <li><a href="blog.html" class="hover:text-wa-deep-blue transition-colors">Blog</a></li>
+            <li><a href="about.html" class="hover:text-wa-deep-blue transition-colors">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Support</h6>
+          <ul class="mt-3 space-y-2 text-white/50 text-sm">
+            <li><a href="contact.html" class="hover:text-wa-deep-blue transition-colors">Contact Us</a></li>
+            <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 mt-8 pt-8 text-center text-white/30 text-sm font-card">
+        &copy; 2026 Wild Rainier. Crafted with <i class="las la-heart text-wa-soft-red"></i> for the Washington wilderness.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════ JAVASCRIPT ═══════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // ── MOBILE MENU ──
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let menuOpen = false;
+      menuToggle.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle('hidden', !menuOpen);
+        mobileMenu.classList.toggle('flex', menuOpen);
+        menuToggle.innerHTML = menuOpen ? '<i class="las la-times text-xl"></i>' :
+          '<i class="las la-bars text-xl"></i>';
+      });
+
+      // ── NAVBAR SCROLL EFFECT ──
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+          navbar.classList.add('bg-wa-green/95', 'shadow-lg');
+          navbar.classList.remove('bg-transparent');
+        } else {
+          navbar.classList.remove('bg-wa-green/95', 'shadow-lg');
+          navbar.classList.add('bg-transparent');
+        }
+      });
+
+      // ── INTERSECTION OBSERVER (FADE UP) ──
+      const fadeEls = document.querySelectorAll('.fade-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+      fadeEls.forEach(el => observer.observe(el));
+
+      // ── COUNTER ANIMATION ──
+      const counters = document.querySelectorAll('.stat-number');
+      let countersAnimated = false;
+
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !countersAnimated) {
+            countersAnimated = true;
+            counters.forEach(counter => {
+              const target = parseInt(counter.dataset.count);
+              let current = 0;
+              const increment = Math.ceil(target / 60);
+              const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                  counter.textContent = target + '+';
+                  clearInterval(timer);
+                } else {
+                  counter.textContent = current + '+';
+                }
+              }, 25);
+            });
+          }
+        });
+      }, { threshold: 0.3 });
+
+      counters.forEach(c => counterObserver.observe(c));
+
+    });
+  </script>
+
+</body>
+</html>
