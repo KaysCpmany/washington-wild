@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trails — Wild Rainier</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+
+  <!-- Icon8 / Line Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/line-awesome@1.3.0/dist/line-awesome/css/line-awesome.min.css" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Custom Theme ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #dcdbd9;
+      color: #1e423b;
+      overflow-x: hidden;
+    }
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-card {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ── Colors ── */
+    .bg-wa-green {
+      background-color: #1e423b;
+    }
+    .bg-wa-orange {
+      background-color: #f48746;
+    }
+    .bg-wa-red-orange {
+      background-color: #d75d46;
+    }
+    .bg-wa-soft-red {
+      background-color: #d98f86;
+    }
+    .bg-wa-light-gray {
+      background-color: #dcdbd9;
+    }
+    .bg-wa-periwinkle {
+      background-color: #c0cbdd;
+    }
+    .bg-wa-deep-blue {
+      background-color: #25a06f;
+    }
+    .text-wa-green {
+      color: #1e423b;
+    }
+    .text-wa-orange {
+      color: #f48746;
+    }
+    .text-wa-red-orange {
+      color: #d75d46;
+    }
+    .text-wa-soft-red {
+      color: #d98f86;
+    }
+    .text-wa-deep-blue {
+      color: #e9831d;
+    }
+    .text-wa-periwinkle {
+      color: #c0cbdd;
+    }
+
+    /* ── Glass ── */
+    .glass-light {
+      background: rgba(255, 255, 255, 0.70);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(37, 108, 160, 0.15);
+      box-shadow: 0 8px 32px rgba(30, 66, 59, 0.08);
+    }
+    .glass-dark {
+      background: rgba(30, 66, 59, 0.80);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      background: #256ca0;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(37, 108, 160, 0.35);
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: #1a4f7a;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px rgba(37, 108, 160, 0.40);
+    }
+    .btn-outline-light {
+      background: transparent;
+      color: #fff;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-outline-dark {
+      background: transparent;
+      color: #1e423b;
+      padding: 0.8rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      border: 1.5px solid #1e423b;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline-dark:hover {
+      background: #1e423b;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #dcdbd9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #256ca0;
+      border-radius: 60px;
+    }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Trail Card ── */
+    .trail-card {
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    .trail-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(30, 66, 59, 0.15);
+    }
+    .trail-card .image-wrap {
+      overflow: hidden;
+      height: 200px;
+    }
+    .trail-card .image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .trail-card:hover .image-wrap img {
+      transform: scale(1.05);
+    }
+    .trail-card .difficulty-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.25rem 1rem;
+      border-radius: 60px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(30, 66, 59, 0.7);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .trail-card .difficulty-badge.easy {
+      background: rgba(37, 160, 111, 0.8);
+    }
+    .trail-card .difficulty-badge.moderate {
+      background: rgba(244, 135, 70, 0.8);
+    }
+    .trail-card .difficulty-badge.hard {
+      background: rgba(215, 93, 70, 0.8);
+    }
+
+    /* ── Filter buttons ── */
+    .filter-btn {
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: transparent;
+      border: 1.5px solid rgba(30, 66, 59, 0.2);
+      color: #1e423b;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .filter-btn:hover {
+      background: #1e423b;
+      color: #fff;
+      border-color: #1e423b;
+    }
+    .filter-btn.active {
+      background: #1e423b;
+      color: #fff;
+      border-color: #1e423b;
+    }
+
+    /* ── Parallax divider ── */
+    .parallax-divider {
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .parallax-divider .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 66, 59, 0.55);
+      background: linear-gradient(135deg, rgba(30, 66, 59, 0.7) 0%, rgba(37, 108, 160, 0.3) 100%);
+    }
+    @media (max-width: 768px) {
+      .parallax-divider {
+        background-attachment: scroll;
+      }
+    }
+
+    /* ── Nav active ── */
+    .nav-link-active {
+      color: #e9831d !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ NAVIGATION ═══════ -->
+  <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-wa-green/95 shadow-lg" id="navbar">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 flex items-center justify-between h-16 md:h-20">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
+        <i class="las la-mountain text-wa-deep-blue text-2xl"></i>
+        <span class="text-white">Wild Rainier</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center gap-6 text-white/80 text-sm font-medium">
+        <a href="index.html" class="hover:text-wa-deep-blue transition-colors">Home</a>
+        <a href="about.html" class="hover:text-wa-deep-blue transition-colors">About</a>
+        <a href="trails.html" class="nav-link-active transition-colors">Trails</a>
+        <a href="gallery.html" class="hover:text-wa-deep-blue transition-colors">Gallery</a>
+        <a href="blog.html" class="hover:text-wa-deep-blue transition-colors">Blog</a>
+        <a href="contact.html" class="btn-primary text-sm py-2 px-5">
+          <i class="las la-compass mr-2"></i>Plan Trip
+        </a>
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button id="menuToggle" class="md:hidden text-white/80 hover:text-white transition-colors p-1" aria-label="Toggle menu">
+        <i class="las la-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden flex-col gap-4 px-6 py-6 bg-wa-green/95 backdrop-blur-xl border-t border-white/5 md:hidden">
+      <a href="index.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Home</a>
+      <a href="about.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">About</a>
+      <a href="trails.html" class="text-wa-deep-blue transition-colors">Trails</a>
+      <a href="gallery.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Gallery</a>
+      <a href="blog.html" class="text-white/80 hover:text-wa-deep-blue transition-colors">Blog</a>
+      <a href="contact.html" class="btn-primary text-center text-sm py-2.5">Plan Trip</a>
+    </div>
+  </nav>
+
+  <!-- ═══════ TRAILS HERO ═══════ -->
+  <section class="relative min-h-[60vh] flex items-center justify-center px-5" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=1600&h=800&fit=crop&crop=center'); background-size: cover; background-position: center 40%;">
+    <div class="absolute inset-0 bg-gradient-to-b from-wa-green/20 via-wa-green/40 to-wa-green/70"></div>
+    <div class="relative z-10 max-w-4xl text-center text-white pt-20">
+      <span class="inline-block px-4 py-1 rounded-full border border-white/30 bg-white/10 backdrop-blur-sm text-xs font-bold tracking-widest uppercase mb-4">
+        <i class="las la-map-signs mr-2"></i> Explore
+      </span>
+      <h1 class="font-display text-5xl md:text-7xl font-bold leading-tight">
+        Find Your <span class="text-wa-deep-blue">Trail</span>
+      </h1>
+      <p class="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mt-4 font-light leading-relaxed">
+        From gentle rainforest walks to alpine summit pushes — discover the trails that define Washington's wild heart.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="#trail-list" class="btn-primary"><i class="las la-arrow-down mr-2"></i>Browse Trails</a>
+        <a href="#map" class="btn-outline-light"><i class="las la-map mr-2"></i>View Map</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FILTERS & SEARCH ═══════ -->
+  <section class="py-10 px-5 bg-wa-light-gray border-b border-wa-green/5">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-wrap items-center justify-between gap-4 fade-up">
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn active" data-filter="all">All Trails</button>
+          <button class="filter-btn" data-filter="easy">Easy</button>
+          <button class="filter-btn" data-filter="moderate">Moderate</button>
+          <button class="filter-btn" data-filter="hard">Hard</button>
+        </div>
+        <div class="relative">
+          <i class="las la-search absolute left-3 top-1/2 -translate-y-1/2 text-wa-green/40"></i>
+          <input type="text" id="searchInput" placeholder="Search trails..." class="pl-10 pr-4 py-2 rounded-full border border-wa-green/10 focus:border-wa-deep-blue focus:ring-2 focus:ring-wa-deep-blue/20 outline-none transition bg-white/60 text-wa-green text-sm w-48 md:w-64" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TRAIL LIST ═══════ -->
+  <section id="trail-list" class="py-16 md:py-24 px-5 bg-wa-light-gray">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-hiking mr-2"></i> Our Routes</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">
+          Handpicked <span class="text-wa-orange">Adventures</span>
+        </h2>
+        <p class="text-wa-green/60 max-w-2xl mx-auto mt-3 text-lg">Each trail is vetted by our guides for beauty, challenge, and that unmistakable Washington magic.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12" id="trailContainer">
+        <!-- Trail 1: Skyline -->
+        <div class="trail-card glass-light rounded-2xl border border-wa-deep-blue/5 fade-up fade-up-d1" data-difficulty="moderate">
+          <div class="relative image-wrap">
+            <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=500&fit=crop&crop=center" alt="Skyline Trail" loading="lazy" />
+            <span class="difficulty-badge moderate">Moderate</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-wa-green/40 ml-1">4.9 (142 reviews)</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-wa-green mt-1">Skyline Trail</h3>
+            <div class="flex flex-wrap gap-3 mt-1 text-xs text-wa-green/60">
+              <span><i class="las la-route mr-1"></i> 5.5 mi</span>
+              <span><i class="las la-arrow-up mr-1"></i> 1,450 ft</span>
+              <span><i class="las la-clock mr-1"></i> 3-4 hrs</span>
+              <span><i class="las la-mountain mr-1"></i> Paradise</span>
+            </div>
+            <p class="text-wa-green/60 text-sm mt-3 leading-relaxed font-card">Wildflower meadows, sweeping glacier views, and a classic Rainier experience. This iconic loop offers non-stop drama.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <a href="#" class="text-wa-deep-blue font-semibold text-sm hover:underline inline-flex items-center gap-1">View Details <i class="las la-arrow-right"></i></a>
+              <span class="text-xs text-wa-green/40"><i class="las la-tree mr-1"></i> Open</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trail 2: Hoh Rainforest -->
+        <div class="trail-card glass-light rounded-2xl border border-wa-deep-blue/5 fade-up fade-up-d2" data-difficulty="easy">
+          <div class="relative image-wrap">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=500&fit=crop&crop=center" alt="Hoh Rainforest" loading="lazy" />
+            <span class="difficulty-badge easy">Easy</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-wa-green/40 ml-1">4.8 (98 reviews)</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-wa-green mt-1">Hoh Rainforest</h3>
+            <div class="flex flex-wrap gap-3 mt-1 text-xs text-wa-green/60">
+              <span><i class="las la-route mr-1"></i> 3.2 mi</span>
+              <span><i class="las la-arrow-up mr-1"></i> 200 ft</span>
+              <span><i class="las la-clock mr-1"></i> 1.5-2 hrs</span>
+              <span><i class="las la-tree mr-1"></i> Olympic NP</span>
+            </div>
+            <p class="text-wa-green/60 text-sm mt-3 leading-relaxed font-card">Ancient moss-draped maples, lush ferns, and the serene rhythm of the Hoh River. A gentle immersion into the emerald cathedral.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <a href="#" class="text-wa-deep-blue font-semibold text-sm hover:underline inline-flex items-center gap-1">View Details <i class="las la-arrow-right"></i></a>
+              <span class="text-xs text-wa-green/40"><i class="las la-tree mr-1"></i> Open</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trail 3: Lake Serene -->
+        <div class="trail-card glass-light rounded-2xl border border-wa-deep-blue/5 fade-up fade-up-d3" data-difficulty="hard">
+          <div class="relative image-wrap">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=500&fit=crop&crop=center" alt="Lake Serene" loading="lazy" />
+            <span class="difficulty-badge hard">Hard</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-wa-green/40 ml-1">4.7 (203 reviews)</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-wa-green mt-1">Lake Serene</h3>
+            <div class="flex flex-wrap gap-3 mt-1 text-xs text-wa-green/60">
+              <span><i class="las la-route mr-1"></i> 7.2 mi</span>
+              <span><i class="las la-arrow-up mr-1"></i> 2,100 ft</span>
+              <span><i class="las la-clock mr-1"></i> 4-5 hrs</span>
+              <span><i class="las la-tint mr-1"></i> Central Cascades</span>
+            </div>
+            <p class="text-wa-green/60 text-sm mt-3 leading-relaxed font-card">Turquoise alpine water, towering cliffs, and a rewarding climb through old growth. A true Pacific Northwest classic.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <a href="#" class="text-wa-deep-blue font-semibold text-sm hover:underline inline-flex items-center gap-1">View Details <i class="las la-arrow-right"></i></a>
+              <span class="text-xs text-wa-green/40"><i class="las la-tree mr-1"></i> Open</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trail 4: Maple Pass -->
+        <div class="trail-card glass-light rounded-2xl border border-wa-deep-blue/5 fade-up fade-up-d4" data-difficulty="moderate">
+          <div class="relative image-wrap">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=500&fit=crop&crop=center&sat=-10" alt="Maple Pass" loading="lazy" />
+            <span class="difficulty-badge moderate">Moderate</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-wa-green/40 ml-1">4.9 (156 reviews)</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-wa-green mt-1">Maple Pass Loop</h3>
+            <div class="flex flex-wrap gap-3 mt-1 text-xs text-wa-green/60">
+              <span><i class="las la-route mr-1"></i> 7.0 mi</span>
+              <span><i class="las la-arrow-up mr-1"></i> 1,800 ft</span>
+              <span><i class="las la-clock mr-1"></i> 3-4 hrs</span>
+              <span><i class="las la-mountain mr-1"></i> North Cascades</span>
+            </div>
+            <p class="text-wa-green/60 text-sm mt-3 leading-relaxed font-card">Spectacular alpine views, wildflower-covered slopes, and a serene lake at the pass. A must-do in the North Cascades.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <a href="#" class="text-wa-deep-blue font-semibold text-sm hover:underline inline-flex items-center gap-1">View Details <i class="las la-arrow-right"></i></a>
+              <span class="text-xs text-wa-green/40"><i class="las la-tree mr-1"></i> Open</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trail 5: Naches Peak -->
+        <div class="trail-card glass-light rounded-2xl border border-wa-deep-blue/5 fade-up fade-up-d5" data-difficulty="easy">
+          <div class="relative image-wrap">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=500&fit=crop&crop=center" alt="Naches Peak" loading="lazy" />
+            <span class="difficulty-badge easy">Easy</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-wa-green/40 ml-1">4.6 (87 reviews)</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-wa-green mt-1">Naches Peak Loop</h3>
+            <div class="flex flex-wrap gap-3 mt-1 text-xs text-wa-green/60">
+              <span><i class="las la-route mr-1"></i> 3.5 mi</span>
+              <span><i class="las la-arrow-up mr-1"></i> 600 ft</span>
+              <span><i class="las la-clock mr-1"></i> 1.5-2 hrs</span>
+              <span><i class="las la-mountain mr-1"></i> Mt. Rainier NP</span>
+            </div>
+            <p class="text-wa-green/60 text-sm mt-3 leading-relaxed font-card">An easy loop with spectacular views of Mount Rainier, wildflower meadows, and a peaceful alpine lake. Perfect for families.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <a href="#" class="text-wa-deep-blue font-semibold text-sm hover:underline inline-flex items-center gap-1">View Details <i class="las la-arrow-right"></i></a>
+              <span class="text-xs text-wa-green/40"><i class="las la-tree mr-1"></i> Open</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trail 6: Cascade Pass -->
+        <div class="trail-card glass-light rounded-2xl border border-wa-deep-blue/5 fade-up fade-up-d6" data-difficulty="hard">
+          <div class="relative image-wrap">
+            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=500&fit=crop&crop=center&sat=-5" alt="Cascade Pass" loading="lazy" />
+            <span class="difficulty-badge hard">Hard</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 text-sm text-wa-orange">
+              <i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i><i class="las la-star"></i>
+              <span class="text-wa-green/40 ml-1">4.8 (112 reviews)</span>
+            </div>
+            <h3 class="font-display text-2xl font-bold text-wa-green mt-1">Cascade Pass</h3>
+            <div class="flex flex-wrap gap-3 mt-1 text-xs text-wa-green/60">
+              <span><i class="las la-route mr-1"></i> 7.4 mi</span>
+              <span><i class="las la-arrow-up mr-1"></i> 2,500 ft</span>
+              <span><i class="las la-clock mr-1"></i> 5-6 hrs</span>
+              <span><i class="las la-mountain mr-1"></i> North Cascades</span>
+            </div>
+            <p class="text-wa-green/60 text-sm mt-3 leading-relaxed font-card">A challenging hike to a majestic pass with jaw-dropping views of glaciers, jagged peaks, and the rugged North Cascades.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <a href="#" class="text-wa-deep-blue font-semibold text-sm hover:underline inline-flex items-center gap-1">View Details <i class="las la-arrow-right"></i></a>
+              <span class="text-xs text-wa-green/40"><i class="las la-tree mr-1"></i> Open</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-12 fade-up">
+        <p class="text-wa-green/50 text-sm font-card">Can't find what you're looking for? <a href="contact.html" class="text-wa-deep-blue font-semibold hover:underline">Contact us</a> for personalized recommendations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ MAP SECTION ═══════ -->
+  <section id="map" class="py-16 md:py-20 px-5 bg-wa-green">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-map mr-2"></i> Explore</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">
+          Trail <span class="text-wa-deep-blue">Map</span>
+        </h2>
+        <p class="text-white/60 max-w-2xl mx-auto mt-3 text-lg">Find your next adventure across Washington's diverse landscapes.</p>
+      </div>
+
+      <div class="mt-10 glass-dark rounded-2xl overflow-hidden border border-white/5 shadow-xl fade-up">
+        <div class="h-80 md:h-96 w-full relative">
+          <iframe class="absolute inset-0 w-full h-full" src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d171439.87687642436!2d-121.94242585863735!3d46.84862107502084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sMount%20Rainier%20trails!5e0!3m2!1sen!2sus!4v1684123456789" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="p-4 text-white/50 text-xs text-center font-card border-t border-white/5">
+          <i class="las la-info-circle mr-1"></i> Interactive map shows approximate trail locations. Always check current conditions and permits before heading out.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TRAIL TIPS — ESSENTIALS ═══════ -->
+  <section class="py-16 md:py-20 px-5 bg-wa-light-gray">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center fade-up">
+        <span class="text-wa-deep-blue font-bold text-sm tracking-widest uppercase"><i class="las la-info-circle mr-2"></i> Trail Tips</span>
+        <h2 class="font-display text-4xl md:text-5xl font-bold text-wa-green mt-2">
+          Before You <span class="text-wa-orange">Go</span>
+        </h2>
+        <p class="text-wa-green/60 max-w-2xl mx-auto mt-3 text-lg">Essential advice to make your hike safe, enjoyable, and respectful of the wild.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mt-12">
+        <div class="glass-light rounded-2xl p-6 border border-wa-deep-blue/5 fade-up fade-up-d1">
+          <div class="text-3xl text-wa-deep-blue mb-3"><i class="las la-cloud-sun"></i></div>
+          <h4 class="font-bold text-wa-green text-lg">Check Weather</h4>
+          <p class="text-wa-green/60 text-sm mt-1 leading-relaxed font-card">Mountain weather changes quickly. Always check the forecast and be prepared for rain, wind, or sudden temperature drops.</p>
+        </div>
+        <div class="glass-light rounded-2xl p-6 border border-wa-deep-blue/5 fade-up fade-up-d2">
+          <div class="text-3xl text-wa-orange mb-3"><i class="las la-backpack"></i></div>
+          <h4 class="font-bold text-wa-green text-lg">Pack the 10 Essentials</h4>
+          <p class="text-wa-green/60 text-sm mt-1 leading-relaxed font-card">Navigation, headlamp, sun protection, first aid, knife, fire, shelter, extra food, extra water, and extra clothes. Don't leave without them.</p>
+        </div>
+        <div class="glass-light rounded-2xl p-6 border border-wa-deep-blue/5 fade-up fade-up-d3">
+          <div class="text-3xl text-wa-soft-red mb-3"><i class="las la-leaf"></i></div>
+          <h4 class="font-bold text-wa-green text-lg">Leave No Trace</h4>
+          <p class="text-wa-green/60 text-sm mt-1 leading-relaxed font-card">Pack out everything you pack in. Stay on trail, respect wildlife, and leave the wild as beautiful as you found it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA — BOOK A GUIDED HIKE ═══════ -->
+  <section class="py-16 md:py-24 px-5 bg-wa-green">
+    <div class="max-w-4xl mx-auto text-center fade-up">
+      <span class="text-wa-orange font-bold text-sm tracking-widest uppercase"><i class="las la-calendar-check mr-2"></i> Guided Trips</span>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white mt-2">
+        Want a <span class="text-wa-deep-blue">Guide</span> by Your Side?
+      </h2>
+      <p class="text-white/70 text-lg max-w-2xl mx-auto mt-3 font-card">Our expert guides know these trails like the back of their hand. Let us handle the navigation, the stories, and the snacks.</p>
+      <div class="flex flex-wrap justify-center gap-4 mt-8">
+        <a href="contact.html" class="btn-primary"><i class="las la-paper-plane mr-2"></i>Book a Guide</a>
+        <a href="about.html" class="btn-outline-light"><i class="las la-users mr-2"></i>Meet Our Team</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="bg-wa-green border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-5 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="md:col-span-2">
+          <div class="flex items-center gap-2.5 text-white font-bold text-xl tracking-tight">
+            <i class="las la-mountain text-wa-deep-blue text-2xl"></i>
+            <span>Wild Rainier</span>
+          </div>
+          <p class="text-white/50 text-sm mt-3 max-w-xs leading-relaxed font-card">Inspired by the raw beauty of Washington — from the icy peaks of Rainier to the emerald depths of the Hoh.</p>
+          <div class="flex gap-4 mt-4 text-white/40">
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-instagram text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-facebook text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-twitter text-lg"></i></a>
+            <a href="#" class="hover:text-wa-deep-blue transition-colors"><i class="lab la-youtube text-lg"></i></a>
+          </div>
+        </div>
+        <div>
+          <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Explore</h6>
+          <ul class="mt-3 space-y-2 text-white/50 text-sm">
+            <li><a href="trails.html" class="hover:text-wa-deep-blue transition-colors">Trails</a></li>
+            <li><a href="gallery.html" class="hover:text-wa-deep-blue transition-colors">Gallery</a></li>
+            <li><a href="blog.html" class="hover:text-wa-deep-blue transition-colors">Blog</a></li>
+            <li><a href="about.html" class="hover:text-wa-deep-blue transition-colors">About</a></li>
+          </ul>
+        </div>
+        <div>
+          <h6 class="text-white font-semibold text-sm uppercase tracking-wider">Support</h6>
+          <ul class="mt-3 space-y-2 text-white/50 text-sm">
+            <li><a href="contact.html" class="hover:text-wa-deep-blue transition-colors">Contact Us</a></li>
+            <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-wa-deep-blue transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/5 mt-8 pt-8 text-center text-white/30 text-sm font-card">
+        &copy; 2026 Wild Rainier. Crafted with <i class="las la-heart text-wa-soft-red"></i> for the Washington wilderness.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════ JAVASCRIPT ═══════ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      // ── MOBILE MENU ──
+      const menuToggle = document.getElementById('menuToggle');
+      const mobileMenu = document.getElementById('mobileMenu');
+      let menuOpen = false;
+      menuToggle.addEventListener('click', () => {
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle('hidden', !menuOpen);
+        mobileMenu.classList.toggle('flex', menuOpen);
+        menuToggle.innerHTML = menuOpen ? '<i class="las la-times text-xl"></i>' :
+          '<i class="las la-bars text-xl"></i>';
+      });
+
+      // ── NAVBAR SCROLL EFFECT ──
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) {
+          navbar.classList.add('bg-wa-green/95', 'shadow-lg');
+          navbar.classList.remove('bg-transparent');
+        } else {
+          navbar.classList.remove('bg-wa-green/95', 'shadow-lg');
+          navbar.classList.add('bg-transparent');
+        }
+      });
+
+      // ── FILTER & SEARCH ──
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const trailCards = document.querySelectorAll('.trail-card');
+      const searchInput = document.getElementById('searchInput');
+
+      function filterTrails() {
+        const selectedFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        trailCards.forEach(card => {
+          const difficulty = card.dataset.difficulty;
+          const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+          const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+
+          const matchesFilter = selectedFilter === 'all' || difficulty === selectedFilter;
+          const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+
+          if (matchesFilter && matchesSearch) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          filterTrails();
+        });
+      });
+
+      searchInput.addEventListener('input', filterTrails);
+
+      // ── INTERSECTION OBSERVER (FADE UP) ──
+      const fadeEls = document.querySelectorAll('.fade-up');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+      fadeEls.forEach(el => observer.observe(el));
+
+    });
+  </script>
+
+</body>
+</html>
